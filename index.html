@@ -1,0 +1,161 @@
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&family=Libre+Baskerville&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<nav>
+<div style="height: 50px; width: 300px;">
+<img src="paramsa.png" height="60px" style="float: left; top: 50%; transform: translateY(-50%);position: relative;"/> <h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10; font-size: 2em">PARAMSA<br/><span style="font-size:.69em">LABORATORY</span></h1>
+</div>
+</nav>
+<br/>
+<main>
+  <div class="block">
+    <h2>MISSION</h2>
+    <p>
+    Paramsa will eventually abstract away all intellectual human labor by leveraging novel mathematical and computational approaches for artificial intelligence.
+    <br/><br/>
+    Paramsa intends to conduct research and share findings with the world while still acting in the shareholders' best interest–Paramsa fully intends to monopolize all labor.
+    <br/><br/>
+    Paramsa will eventually become a publicly traded company, meaning anyone will have the ability to own the monopolized means of production; those who don't own the means of production when the value of human labor goes to zero will be at the mercy of those who do.
+    </p>
+  </div>
+
+  <div class="block" style="float: right;">
+    <h2>Loyae<span class="version">V1.01</span></h2>
+    <p>Loyae is an intuitive API and web application that unleashes the power of natural language processing (NLP) for modern site optimization. In addition to abstractly generating metadata that embodies the meaningful and relevant context of your site.</p>
+  </div>
+
+  <div class="block">
+    <h2>Multimodal Thoughts<span class="version">V0.00</span></h2>
+    <p>By overloading the addition operator with a non-linear addition operator, we can learn deep relationships between dimensionally-reduced image and sounds embeddings. Said embeddings could be concatinated with traditional word embeddings. This will enable autoregressive transformer-based models to not only <i>think</i> symbolically, but also visually and auditorily, just like humans! </p>
+  </div>
+
+</main>
+  </body>
+
+
+
+
+<!--<div class="particle" style="top: 100px;left:50px;transform: rotate(32deg);"></div>-->
+<script>
+function randf(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+
+  class Particle {
+    constructor() {
+      this.x = randf(0, window.innerWidth); 
+      this.y = randf(0,document.body.scrollHeight);
+      this.rotation = 0;
+      this.brightness = .5;
+      this.DNA = [2,3,4,5,3,2];
+    }
+  }
+
+  //init
+  var particles = []
+  var particle_elms = []
+  for(var i = 0; i < 100; i++){
+    particles.push(new Particle())
+    particle_elms.push(document.createElement("div"));
+    particle_elms[i].className = "particle";
+    particle_elms[i].id = "particle_"+i;
+    document.body.appendChild(particle_elms[i]);
+
+    document.getElementById("particle_"+i).style.top = particles[i].y;
+    document.getElementById("particle_"+i).style.left = particles[i].x;
+    document.getElementById("particle_"+i).style.transform = `rotate(`+particles[i].rotation+`deg)`;
+    document.getElementById("particle_"+i).style.filter = `brightness(`+particles[i].brightness+`)`;
+  }
+
+  
+ 
+ function newiter(index) {
+    setTimeout(function() {
+       for(var i = 0; i < 100; i++){
+          particles[i].y+= randf(-100,100);
+          particles[i].x+= randf(-100,100);
+          particles[i].rotation +=  randf(0,100);
+          particles[i].brightness -= .1;
+          if(index%10 == 0){
+          particles[i].brightness -= .5;
+          }
+         
+
+          document.getElementById("particle_"+i).style.top = particles[i].y;
+          document.getElementById("particle_"+i).style.left = particles[i].x;
+          document.getElementById("particle_"+i).style.transform = `rotate(`+particles[i].rotation+`deg)`;
+          document.getElementById("particle_"+i).style.filter = `brightness(`+particles[i].brightness+`)`;
+       }
+      
+      newiter(index + 1); 
+    }, 600); 
+}
+
+newiter(0); 
+
+</script>
+<style>
+  .particle{
+    transition: all 0.4s ease;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: lightcoral;
+    z-index: -9999;
+  }
+</style>
+
+
+
+
+    
+  </html>
+
+<style>
+* {
+font-family: 'Libre Baskerville', serif;
+color: white;
+margin: 0;
+padding: 0;
+}
+body{
+margin: 30px;
+}
+main{
+margin-top: 30px;
+}
+.version{
+text-decoration: italic;
+font-size: .3em;
+margin-left: 5px;
+}
+.block{
+width: 40%;
+margin-top: 30px;
+}
+
+h2{
+font-family: 'IBM Plex Sans', sans-serif;
+font-weight:lighter;
+font-size: 3em;
+color: lightcoral;
+}
+h1{
+font-family: 'Libre Baskerville', serif;
+}
+html {
+    height: 100%;
+}
+body {
+   background-color: black;
+}
+</style>
