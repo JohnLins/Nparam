@@ -12,8 +12,9 @@
 
 <nav>
 <div style="height: 50px; width: 300px;">
-<img src="paramsa.png" height="60px" style="float: left; top: 50%; transform: translateY(-50%);position: relative;"/> <h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10; font-size: 2em">PARAMSA<br/><span style="font-size:.69em">LABORATORY</span></h1>
+<img src="paramsa.png" height="60px" style="float: left; position: relative;"/> <h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10; font-size: 2em">PARAMSA<br/><span style="font-size:.69em">LABORATORY</span></h1>
 </div>
+<div style="float:right">Papers &#9660; Products &#9660; </div>
 </nav>
 <br/>
 <main>
@@ -43,7 +44,7 @@
 
 
 <script>
-  NUMPARTICLES = 300;
+  NUMPARTICLES = 100;
   function randf(min, max) {
     return Math.random() * (max - min) + min;
   }
@@ -54,9 +55,9 @@
       this.x = randf(0, window.innerWidth); 
       this.y = randf(0,document.body.scrollHeight);
       this.initial_x = this.x;
-      this.initial_y = this.x;
+      this.initial_y = this.y;
       this.rotation = 0;
-      this.brightness = .5;
+      this.opacity = .5;
       this.DNA = [];
       for(var i = 0; i < 10; i++){
         this.DNA.push(randf(0,360))
@@ -74,36 +75,50 @@
     particle_elms[i].id = "particle_"+i;
     document.body.appendChild(particle_elms[i]);
 
-    document.getElementById("particle_"+i).style.top = particles[i].y;
-    document.getElementById("particle_"+i).style.left = particles[i].x;
+    document.getElementById("particle_"+i).style.top = particles[i].initial_y;
+    document.getElementById("particle_"+i).style.left = particles[i].initial_x;
     document.getElementById("particle_"+i).style.transform = `rotate(`+particles[i].rotation+`deg)`;
-    document.getElementById("particle_"+i).style.filter = `brightness(`+particles[i].brightness+`)`;
+    document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
   }
 
-  
+  function mutate(dna){
+    for(var i = 0; i < 10; i++){
+      dna[i] += randf(-10,10);
+    }
+
+    return dna;
+  }
  
  function newiter(index) {
     setTimeout(function() {
        for(var i = 0; i < NUMPARTICLES; i++){
        if(index%10 == 0){
-            particles[i].brightness = .5;
+            particles[i].opacity = .5;
             particles[i].x=particles[i].initial_x;
             particles[i].y=particles[i].initial_y;
 
             //selection, reward: distance from bottom of screen
+            
+            for(var j = 0; j < NUMPARTICLES-1; j++){
+              if(particles[j].y > particles[j+1].y){
+                particles[j+1].DNA = mutate(particles[j].DNA)
+              } else {
+                particles[j].DNA = mutate(particles[j+1].DNA)
+              }
+            }
 
         }
             particles[i].y += randf(0,100)*Math.sin(particles[i].DNA[index%10] * (Math.PI / 180));
             particles[i].x += randf(0,100)*Math.cos(particles[i].DNA[index%10] * (Math.PI / 180));
             particles[i].rotation += particles[i].DNA[index%10];
-            particles[i].brightness -= .05;
+            particles[i].opacity -= .05;
         
          
 
           document.getElementById("particle_"+i).style.top = particles[i].y;
           document.getElementById("particle_"+i).style.left = particles[i].x;
           document.getElementById("particle_"+i).style.transform = `rotate(`+particles[i].rotation+`deg)`;
-          document.getElementById("particle_"+i).style.filter = `brightness(`+particles[i].brightness+`)`;
+          document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
        }
       
       newiter(index + 1); 
@@ -133,7 +148,7 @@ newiter(0);
 <style>
 * {
 font-family: 'Libre Baskerville', serif;
-color: white;
+color: black;
 margin: 0;
 padding: 0;
 }
@@ -167,8 +182,5 @@ font-family: 'Libre Baskerville', serif;
 }
 html {
     height: 100%;
-}
-body {
-   background-color: black;
 }
 </style>
