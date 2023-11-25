@@ -136,8 +136,7 @@
       this.y = randf(0,document.body.scrollHeight);
       this.initial_x = this.x;
       this.initial_y = this.y;
-      this.rotation = 0;
-      this.opacity = .5;
+      this.opacity = .3;
       this.DNA = [];
       for(var i = 0; i < 10; i++){
         this.DNA.push(randf(0,360))
@@ -161,37 +160,40 @@
     document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
   }
 
-  function mutate(dna){
-    for(var i = 0; i < 10; i++){
-      dna[i] += randf(-10,10);
-    }
 
-    return dna;
+const body = document.body;
+body.addEventListener('mousemove', handleMouseMove);
+let X = 0;
+let Y = 0;
+ function handleMouseMove(event) {
+    X = event.clientX;
+    Y = event.clientY;
   }
  
  function newiter(index) {
     setTimeout(function() {
        for(var i = 0; i < NUMPARTICLES; i++){
-       if(index%10 == 0){
-            particles[i].opacity = .5;
-            particles[i].x=particles[i].initial_x;
-            particles[i].y=particles[i].initial_y;
 
-            //selection, reward: distance from bottom of screen
+           
+
             
-            for(var j = 0; j < NUMPARTICLES-1; j++){
-              if(particles[j].y > particles[j+1].y){
-                particles[j+1].DNA = mutate(particles[j].DNA)
-              } else {
-                particles[j].DNA = mutate(particles[j+1].DNA)
-              }
+            theta = 0;
+            if(X != 0 && Y!= 0){
+            angleToMouse = Math.atan2(Y-particles[i].y, X-particles[i].x);
+              theta = randf(angleToMouse-(Math.PI/6),angleToMouse+(Math.PI/6));
+            }else {
+              theta = randf(-2*Math.PI,2*Math.PI);
             }
+            
+            particles[i].y += randf(0,600)*Math.sin(theta);
+            particles[i].x += randf(0,600)*Math.cos(theta);
+            particles[i].rotation += randf(-10,10);
 
-        }
-            particles[i].y += randf(0,100)*Math.sin(particles[i].DNA[index%10] * (Math.PI / 180));
-            particles[i].x += randf(0,100)*Math.cos(particles[i].DNA[index%10] * (Math.PI / 180));
-            particles[i].rotation += particles[i].DNA[index%10];
-            particles[i].opacity -= .05;
+            if(index%2 == 0){
+              particles[i].opacity = .3;
+            }else{ 
+              particles[i].opacity = 0;
+            }
         
          
           if(particles[i].y < document.body.scrollHeight-10){
@@ -199,12 +201,13 @@
           }
 
           document.getElementById("particle_"+i).style.left = particles[i].x;
-          document.getElementById("particle_"+i).style.transform = `rotate(`+particles[i].rotation+`deg)`;
+          document.getElementById("particle_"+i).style.transform = `rotate(`+randf(-360,360)+`deg)`;
           document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
+          
        }
       
       newiter(index + 1); 
-    }, 1500); 
+    }, index%2==0 ? 1600 : 1000); 
 }
 
 newiter(0); 
@@ -212,7 +215,7 @@ newiter(0);
 </script>
 <style>
   .particle{
-    transition: all 0.9s ease;
+    transition: all 2.4s ease;
     position: absolute;
     width: 10px;
     height: 10px;
@@ -235,13 +238,12 @@ color: black;
 margin: 0;
 padding: 0;
 }
+html {
+overflow-x: hidden !important;
+}
 body{
   margin: 30px;
 
-  overflow-x: hidden !important;
-  touch-action: none;
-  -webkit-overflow-scrolling: none;
-  overscroll-behavior: none;
 }
 
 main{
