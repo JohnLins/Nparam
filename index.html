@@ -6,13 +6,55 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&family=Libre+Baskerville&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="nParam: Mathematical Intelligence" />
+<meta property="og:description" content="Abstracting Labor using mathematical intelligence" />
+<meta property="og:site_name" content="nParam" />
+<meta property="og:image" content="nparam.png" />
+<meta property="og:image:alt" content="nParam logo" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:keywords" content="nparam, loyae, AI, John Lins, Math"/>
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.nparam.com">
+<meta property="og:country-name" content="United States">
+<meta property="og:brand" content="nParam">
+
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="subject" content="Software">
+<meta name="topic" content="AI">
+<meta name="copyright" content="nParam">
+<meta name="reply-to" content="contact@loyae.com">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="nParam" />
+<meta name="twitter:description" content="Abstracting Labor using mathematical intelligence" />
+<meta name="twitter:image" content="nparam.png" />
+<meta name="twitter:image:alt" content="nParam logo" />
+<meta name="twitter:url" content="https://nparam.com/" />
+<meta name="theme-color" content="lightcoral" />
+<meta name="revisit-after" content="10 days">
+<meta name="googlebot" content="noodp">
+
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-title" content="Loyae" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />        
+    <link rel="apple-touch-icon-precomposed" href=""/>
+<link rel="apple-touch-icon" href="nparam.png" />
+
+
+
+
 </head>
 <body>
 
 
 <nav>
 <div style="height: 50px; width: 300px;">
-<img src="paramsa.png" height="60px" style="float: left; position: relative;"/> <h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10; font-size: 2em">N•PARAM<br/><span style="font-size:.69em">LABORATORY</span></h1>
+<img src="nparam.png" height="60px" style="float: left; position: relative;"/> <h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10;"><span style="font-size: 1em">nParam</span><br/><span style="font-size:1em">LABORATORY</span></h1>
 </div>
 <div style="float:right">Papers &#9660; Products &#9660; </div>
 </nav>
@@ -23,7 +65,7 @@
     <p>
     Nparam will eventually abstract away all intellectual human labor by leveraging novel mathematical and computational approaches for artificial intelligence.
     <br/><br/>
-    Nparam intends to conduct research and share findings with the world while still acting in the shareholders' best interest–Paramsa fully intends to monopolize all labor.
+    Nparam intends to conduct research and share findings with the world while still acting in the shareholders' best interest–nParam fully intends to monopolize all labor.
     <br/><br/>
     Nparam will eventually become a dividend-paying publicly traded company, meaning anyone will have the ability to own the monopolized means of production; those who don't own the means of production when the value of human labor goes to zero will be at the mercy of those who do.
     </p>
@@ -31,20 +73,58 @@
 
   <div class="block">
     <h2>Loyae<span class="version">V1.01</span></h2>
-    <p>Loyae is an intuitive API and web application that unleashes the power of natural language processing (NLP) for modern site optimization. In addition to abstractly generating metadata that embodies the meaningful and relevant context of your site.</p>
+    <p>Loyae is an intuitive API and web application that unleashes the power of natural language processing (NLP) for modern site optimization. Loyae abstractly generates metadata that embodies the meaningful and relevant context of your site.</p>
+  <a href="https://loyae.com" class="button">LAUNCH ❯</a>
   </div>
 
   <div class="block">
     <h2>Multimodal Thoughts<span class="version">V0.00</span></h2>
     <p>By overloading the addition operator with a non-linear addition operator, we can learn deep relationships between dimensionally-reduced image and sounds embeddings. Said embeddings could be concatinated with traditional word embeddings. This will enable autoregressive transformer-based models to not only <i>think</i> symbolically, but also visually and auditorily, just like humans! </p>
+  
+  <div id="waitlist">
+
+<script>
+  function joinwaitlist() {
+  //alert(document.getElementById('waitlist_email').value)
+  if(document.getElementById('waitlist_email').value==""){
+    alert("Please enter your name and email, then try again.")
+  }
+  
+
+  fetch("https://api.loyae.com/waitlist?name="+document.getElementById('waitlist_name').value+"&email="+document.getElementById('waitlist_email').value+"&url=NPARAM", {"method":"GET"}).then(response=>{
+      //check seperatly if api returns err=true
+          document.getElementById("waitlist-button").style.backgroundColor="lightgray";
+          document.getElementById("waitlist-button").innerHTML = "Joined!"
+
+      }).catch(err=>{
+        window.alert(err)
+        window.alert("Please enter your name and email, then try again.")
+      })
+    
+        
+}
+
+</script>
+<h5 style="margin: 10px;">Join the waitlist to be apart of something huge!</h5>
+  <input type="text" id="waitlist_name" name="waitlist_name" placeholder="Name" class="waitlist-input">
+  <input type="text" id="waitlist_email" name="waitlist_email" placeholder="Email" class="waitlist-input">
+  <button id="waitlist-button" onclick="joinwaitlist()">Join Waitlist</button>
+  <br/><br/>
+    
+  
+</div>
+  
   </div>
 
 </main>
+
+<br/>
+<br/>
   </body>
 
 
 <script>
-  NUMPARTICLES = 50;
+  NUMPARTICLES = 30;
   function randf(min, max) {
     return Math.random() * (max - min) + min;
   }
@@ -114,15 +194,17 @@
             particles[i].opacity -= .05;
         
          
+          if(particles[i].y < document.body.scrollHeight-10){
+            document.getElementById("particle_"+i).style.top = particles[i].y;
+          }
 
-          document.getElementById("particle_"+i).style.top = particles[i].y;
           document.getElementById("particle_"+i).style.left = particles[i].x;
           document.getElementById("particle_"+i).style.transform = `rotate(`+particles[i].rotation+`deg)`;
           document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
        }
       
       newiter(index + 1); 
-    }, 300); 
+    }, 1500); 
 }
 
 newiter(0); 
@@ -136,6 +218,7 @@ newiter(0);
     height: 10px;
     background-color: lightcoral;
     z-index: -9999;
+    
   }
 </style>
 
@@ -153,11 +236,14 @@ margin: 0;
 padding: 0;
 }
 body{
-margin: 30px;
+  margin: 30px;
+
+  overflow-x: hidden !important;
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
+  overscroll-behavior: none;
 }
-html{
-overflow-x: hidden !important;
-}
+
 main{
 margin-top: 30px;
 }
@@ -183,4 +269,44 @@ font-family: 'Libre Baskerville', serif;
 html {
     height: 100%;
 }
+
+.button {
+  text-decoration: none;
+  color: white;
+  background-color: lightcoral;
+  padding: 10px;
+  display: block;
+  font-family: 'IBM Plex Sans', sans-serif;
+  width: auto;
+  height: auto;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.button:hover {
+  color: lightcoral;
+  background-color: #fdf1f1;
+
+  }
+
+
+  .waitlist-input{
+    background-color: #fdf1f1;
+    padding: 7px;
+    
+  }
+  #waitlist-button {
+    background-color: lightcoral;
+    padding: 7px;
+    color: white;
+  }
+  #waitlist-button:hover {
+    background-color: #fdf1f1;
+    color: lightcoral;
+    cursor: pointer;
+  }
+  #waitlist input{
+    margin: 5px;
+  }
 </style>
+
