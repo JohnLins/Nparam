@@ -1,0 +1,192 @@
+<center>
+<img src="assets/logo.png" height="70px" style="margin: 10px;"/> 
+<h1>ExclamationGPT</h1>
+<span>A GPT chatbot that <b>doesn't just search</b> the internet, but <b>USES</b> it.</span>
+<br/>
+</center>
+<br/>
+<center>
+<a href="#fundForm" style="background-color: lightcoral;" class="but">Create or Fund Profile</a>
+<a href="https://discord.gg/HPzR2dSnKc" style="background-color: blue;" class="but">Discord</a>
+
+<style>
+.but {
+    border-radius: 5px; 
+    width: 40px; 
+    color: white; 
+    text-decoration: none; 
+    padding: 5px;
+}
+
+hover:.but {
+   box-shadow: 0px 0px 15px lightcoral;
+}
+
+</style>
+</center>
+<center>
+<div>
+<br/>
+<span style="float: left; margin-left: 500px;">ChatGPT ❌</span>
+<span style="float: right; margin-right: 500px;">ExclamationGPT ✅</span>
+</div>
+<br/>
+<br/>
+<img src="assets/1chat.png" height="500px" class="chat"/>
+<img src="assets/1exp.png" height="500px"  class="exp"/>
+<br/>
+<img src="assets/2chat.png" height="270px"  class="chat"/>
+<img src="assets/2exp.png" height="270px"  class="exp"/>
+<br/>
+<img src="assets/3chat.png" height="323px"  class="chat"/>
+<img src="assets/3exp.png" height="323px"  class="exp"/>
+<br/>
+<img src="assets/4chat.png" height="313px"  class="chat"/>
+<img src="assets/4exp.png" height="313px"  class="exp"/>
+<br/><br/>
+<div style="width: 1000px;">
+ExclamationGPT can use APIs, crawl specific websites, summarize articles, answer questions about webpages, modify API queries based on user prompts, and so much more! You may use any APIs you want, for inspiration, <a href="https://github.com/toddmotto/public-apis/blob/145ea881b2b15034d7207f7f7b6a781994fbb574/README.md">here</a> is a list of free public APIs.
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+</center>
+
+
+<center>
+<div>
+<div>
+<b>Step 1.</b> Fund Account
+
+ <form id="fundForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="fname">First Name:</label>
+    <input type="text" id="fname" name="fname" required><br>
+
+    <label for="lname">Last Name:</label>
+    <input type="text" id="lname" name="lname" required><br>
+
+    <label for="number">Card Number:</label>
+    <input type="text" id="number" name="number" required><br>
+
+    <label for="cvc">CVC:</label>
+    <input type="text" id="cvc" name="cvc" required><br>
+
+    <label for="expm">Expiration Month:</label>
+    <input type="text" id="expm" name="expm" required><br>
+
+    <label for="expy">Expiration Year:</label>
+    <input type="text" id="expy" name="expy" required><br>
+
+    <label for="amount">Amount ($3 Minimum):</label>
+    <input type="number" id="amount" name="amount" required><br>
+    
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required><br>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" required><br>
+
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state" required><br>
+
+    <label for="zip">Zip Code:</label>
+    <input type="text" id="zip" name="zip" required><br>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" required><br>
+
+    <button type="button" onclick="submitForm()">Fund/Create</button><br/>
+    Note: $3 takes you a LONG way, each message is typically around one cent.
+  </form>
+
+  <script>
+    function submitForm() {
+      // Get form data
+      var formData = {
+        email: document.getElementById('email').value,
+        fname: document.getElementById('fname').value,
+        lname: document.getElementById('lname').value,
+        number: document.getElementById('number').value,
+        cvc: document.getElementById('cvc').value,
+        expm: document.getElementById('expm').value,
+        expy: document.getElementById('expy').value,
+        amount: document.getElementById('amount').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value,
+        zip: document.getElementById('zip').value,
+        country: document.getElementById('country').value
+      };
+
+      // Build API URL
+      var apiUrl = "https://api.loyae.com/optimize/fund?";
+      for (var key in formData) {
+        apiUrl += key + "=" + encodeURIComponent(formData[key]) + "&";
+      }
+
+      // Add additional parameters
+      apiUrl += "discount=NONE";
+
+      // Make API request (you can customize this based on your needs)
+      // For simplicity, this example uses a dummy alert to show the constructed URL
+      alert("API URL: " + apiUrl);
+      
+      // You can replace the alert with an actual AJAX request to the API
+      // using technologies like Fetch API or XMLHttpRequest
+    }
+  </script>
+
+
+<br/>
+
+
+<b>Step 2.</b> Join the Discord server (Or add the bot to your own server <a href="https://discord.com/api/oauth2/authorize?client_id=1185840075871883264&permissions=377957242944&scope=bot">here</a>)
+<br/>
+<iframe src="https://discord.com/widget?id=700215966163927111&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+</center>
+<br/>
+<center>
+<b>Step 3.</b> If this is your first time using the bot, DM it your email address with <b><i>!!!setup you@example.com</b></i>, this will pair your Discord with your email.
+</center>
+<br/>
+<br/>
+<center>
+You can always check how many funds you have left using <b><i>!!!funds</b></i>.
+<br/>
+<br/>
+<br/>
+ENJOY!!! <3
+</center>
+<br/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&family=Libre+Baskerville&family=Rubik+Broken+Fax&family=Space+Grotesk:wght@300&display=swap');
+*{
+    font-family: "Space Grotesk";
+}
+
+.chat {
+    box-shadow: 0px 0px 15px red;
+}
+
+.exp {
+    box-shadow: 0px 0px 15px green;
+}
+
+form {
+border-radius: 5px;
+background-color: lightcoral;
+padding: 15px;
+width: 600px;
+}
+form label {
+float:left;
+}
+
+form input {
+
+}
+</style>
