@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100&family=Libre+Baskerville&display=swap" rel="stylesheet">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!--<script src="./particles.js"></script>-->
@@ -54,20 +55,20 @@
 </head>
 <body>
 
-<!--
+
 <nav>
 <div style="height: 50px; width: 300px;">
-<img src="nparam.png" height="60px" style="float: left; position: relative;"/> <h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10;"><span style="font-size: 1em">Nparam</span><br/><span style="font-size:1em">LABORATORY</span></h1>
+<img src="nparam.png" height="60px" style="float: left; position: relative;"/> <!--<h1 style="float: left; margin-left: 20px;position: relative;font-weight: 10;"><span style="font-size: 1em">Nparam</span><br/><span style="font-size:1em">LABORATORY</span></h1>
 </div>
-<div style="float:right" href="#about">About</div>
-</nav>-->
+<div style="float:right" href="#about">About</div>-->
+</nav>
 <br/>
 <main>
 
 
 <center>
-<h1 style="font-size: 90px">Introducing<span style="font-size: 20px; color: lightcoral">▪▪▪</span></h1><br/><br/>
-<h1><img src="nparam.png" height="60px"/>Nparam Bull 0.1</h1>
+<h1 style="font-size: 90px">Nparam <span style="color: lightcoral">Bull</span> <span style="font-size: 40px">0.1 | 450M</span></h1><br/><br/><br/>
+<h3>A language model that predicts stock and asset prices from natural language insights</h3>
 </center>
 
   
@@ -122,8 +123,8 @@
 
   class Particle {
     constructor() {
-      this.x = randf(0, window.innerWidth);
-      this.y = randf(0,document.body.scrollHeight);
+      this.x = randf(2, window.innerWidth-2);
+      this.y = randf(2,document.body.scrollHeight-2);
       this.initial_x = this.x;
       this.initial_y = this.y;
       this.opacity = .3;
@@ -181,10 +182,10 @@ let Y = 0;
 
 
 
-            if(next_y > 0 && next_y < document.body.scrollHeight){
+            if(next_y > 2 && next_y < document.body.scrollHeight-2){
               particles[i].y = next_y;
             }
-            if(next_x >0 && next_x < window.innerWidth){
+            if(next_x > 2 && next_x < window.innerWidth-2){
               particles[i].x = next_x;
             }
             particles[i].rotation += randf(-10,10);
@@ -219,6 +220,8 @@ newiter(0);
 
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+
   .particle{
     transition: all 2.4s ease;
     position: absolute;
@@ -238,7 +241,6 @@ newiter(0);
 
 <style>
 * {
-font-family: 'Libre Baskerville', serif;
 color: black;
 margin: 0;
 padding: 0;
@@ -264,33 +266,18 @@ width: 60%;
 margin-top: 30px;
 }
 
-h2{
-font-family: 'IBM Plex Sans', sans-serif;
-font-weight:lighter;
-font-size: 3em;
-color: lightcoral;
-}
+
 h1{
-font-family: 'IBM Plex Sans', sans-serif;
-font-weight: 2000;
+font-family: "Playfair Display SC", serif;
+  font-weight: 600;
+  font-style: normal;
 font-size: 60px.
 }
 html {
     height: 100%;
 }
 
-.button {
-  text-decoration: none;
-  color: white;
-  background-color: lightcoral;
-  padding: 10px;
-  display: block;
-  font-family: 'IBM Plex Sans', sans-serif;
-  width: auto;
-  height: auto;
-  font-weight: bold;
-  margin-top: 10px;
-}
+
 
 .button:hover {
   color: lightcoral;
