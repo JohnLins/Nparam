@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Nparam Laboratory</title>
+<title>Nparam</title>
 <link rel="icon" type="image/x-icon" href="nparam.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,15 +74,52 @@
 <br/>
 <center>
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0NuFY8BBwFbMf8_m-iMVB_jtedxk4h7AL_HcciVoxQU25ZQ/viewform?usp=sf_link" id="waitlist">Claim your spot on the waitlist</a>
-
 </center>
+
 
 <br/><br/>
 <center>
-<h1>Model Overview</h1><br/>
-<embed src="model.pdf" width="1000px" height="1400px"/>
+
+<iframe width="1120" height="630" src="https://www.youtube.com/embed/yKO9i-7ALn8?si=mQvKa-k2Idyno5Gw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 </center>
 
+
+
+<br/><br/><br/><br/><br/><br/>
+<center>
+<h1>Model Overview</h1><br/>
+<embed src="model.pdf" width="40%" height="1050px"/>
+</center>
+
+<br/><br/><br/><br/>
+<center>
+<h1>References</h1>
+<div style="width:90%; text-align: left;">
+
+<br/>
+
+<b>[1]</b>	X. Ding, Y. Zhang, T. Liu, and J. Duan, <i>‘Using Structured Events to Predict Stock Price Movement: An Empirical Investigation’</i>, in Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (, 2014, pp. 1415–1425.
+<br/>
+<br/>
+<b>[2]</b>	J. Devlin, M.-W. Chang, K. Lee, and K. N. Toutanova, <i>‘BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding’</i>, 2018.
+<br/>
+<br/>
+<b>[3]</b>	D. Araci, <i>‘FinBERT: Financial Sentiment Analysis with Pre-trained Language Models’</i>, arXiv [id=’cs.CL’ full_name=’Computation and Language’ description=’Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.’]. 2019.
+<br/>
+<br/>
+<b>[4]</b>	O. Onyshchak, <i>‘Stock Market Dataset’</i>. Kaggle, 2020.
+<br/>
+<br/>
+<b>[5]</b>	S. Ioffe and C. Szegedy, <i>‘Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift’</i>, arXiv [id=’cs.LG’ full_name=’Machine Learning’ description=’Papers on all aspects of machine learning research (supervised, unsupervised, reinforcement learning, bandit problems, and so on) including also robustness, explanation, fairness, and methodology. cs.LG is also an appropriate primary category for applications of machine learning methods.’]. 2015.
+<br/>
+<br/>
+<b>[6]</b>	A. Vaswani et al., <i>‘Attention Is All You Need’</i>, arXiv [id=’cs.CL’ full_name=’Computation and Language’ description=’Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.’]. 2023.
+<br/>
+<br/>
+<b>[7]</b>	K. He, X. Zhang, S. Ren, and J. Sun, <i>‘Deep Residual Learning for Image Recognition’</i>, arXiv [id=’cs.CV’ full_name=’Computer Vision and Pattern Recognition’ is_active=True alt_name=None in_archive=’cs’ is_general=False description=’Covers image processing, computer vision, pattern recognition, and scene understanding. Roughly includes material in ACM Subject Classes I.2.10, I.4, and I.5.’]. 2015.
+</div>
+</center>
 
 <!--
 <script>
@@ -216,7 +253,7 @@ let Y = 0;
           document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
 
        }
-
+box-shadow: 0px 0px 0px 15px #fdf1f1;
       newiter(index + 1);
     }, index%2==0 ? 1600 : 1000);
 }
@@ -288,6 +325,9 @@ html {
 }
 
 
+iframe {
+box-shadow: 0px 0px 15px lightcoral;
+}
 
 .button:hover {
   color: lightcoral;
@@ -302,11 +342,15 @@ html {
     color: white;
     border: 0;
     text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0px 0px 0px 15px #fdf1f1;
+    transition: 0.3s ease-in-out;
   }
   #waitlist:hover {
     background-color: #fdf1f1;
     color: lightcoral;
     cursor: pointer;
+    box-shadow: 0px 0px 0px 15px white;
   }
   #waitlist input{
     margin: 5px;
