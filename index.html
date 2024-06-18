@@ -66,8 +66,8 @@
 
 
 <center>
-<h1 style="font-size: 90px">Nparam <span style="color: lightcoral">Bull</span> <span style="font-size: 40px">0.1 | 625M</span></h1><br/>
-<h3>A language model that predicts stock and asset prices from natural language insights</h3>
+<h1 id="largetitle">Nparam <span style="color: lightcoral">Bull</span> <span id="version">0.1 | 494M</span></h1><br/>
+<h3>A language model that predicts stock and asset prices from natural language prompts</h3>
 </center>
 <br/>
 <br/>
@@ -118,6 +118,12 @@
 <br/>
 <br/>
 <b>[7]</b>	K. He, X. Zhang, S. Ren, and J. Sun, <i>‘Deep Residual Learning for Image Recognition’</i>, arXiv [id=’cs.CV’ full_name=’Computer Vision and Pattern Recognition’ is_active=True alt_name=None in_archive=’cs’ is_general=False description=’Covers image processing, computer vision, pattern recognition, and scene understanding. Roughly includes material in ACM Subject Classes I.2.10, I.4, and I.5.’]. 2015.
+
+<br/>
+<br/>
+<b>[8]</b> P. Micikevicius et al., <i>‘Mixed Precision Training’</i>, arXiv [full_name=’Artificial Intelligence’ description=’Covers all areas of AI except Vision, Robotics, Machine Learning, Multiagent Systems, and Computation and Language (Natural Language Processing), which have separate subject areas. In particular, includes Expert Systems, Theorem Proving (although this may overlap with Logic in Computer Science), Knowledge Representation, Planning, and Uncertainty in AI. Roughly includes material in ACM Subject Classes I.2.0, I.2.1, I.2.3, I.2.4, I.2.8, and I.2.11.’]. 2018.
+
+
 </div>
 </center>
 
@@ -253,7 +259,7 @@ let Y = 0;
           document.getElementById("particle_"+i).style.opacity = particles[i].opacity;
 
        }
-box-shadow: 0px 0px 0px 15px #fdf1f1;
+
       newiter(index + 1);
     }, index%2==0 ? 1600 : 1000);
 }
@@ -288,7 +294,13 @@ newiter(0);
 
 <style>
 
+#largetitle {
+  font-size: 90px;
+}
 
+#version{
+  font-size: 40px;
+}
 
 #model {
   width:40%;
@@ -303,13 +315,21 @@ newiter(0);
 
 @media only screen and (max-width: 480px) {
   #model {
-    width:90%;
+    width:99%;
     height:auto;
   }
   #vid {
-    width:90%;
+    width:95%;
     height:auto;
+    margin:0;
   }
+  #largetitle {
+  font-size: 45px;
+}
+
+#version{
+  font-size: 10px;
+}
 }
 
 
