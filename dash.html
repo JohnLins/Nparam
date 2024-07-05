@@ -164,6 +164,28 @@
         <button id="submit-button"><b>Generate ✦</b></button>
     </div>
     <script>
+
+
+
+    function fetchJSONData() {
+            fetch("https://nparam.com/company.json")
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error
+                            (`HTTP error! Status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then((data) =>
+                      console.log(data))
+                .catch((error) =>
+                       console.error("Unable to fetch data:", error));
+        }
+        fetchJSONData();
+
+
+
+
         document.getElementById('submit-button').addEventListener('click', async () => {
             const prompt = document.getElementById('prompt-input').value;
             const loadingMessage = document.getElementById('loading-message');
@@ -199,48 +221,54 @@
             // ];
 
 
-            const data = [
-                { logo: 'icons/AAPL.png', ticker: 'AAPL', name: 'Apple Inc.', percentChange: 1.2 },
-                { logo: 'icons/GOOGL.png', ticker: 'GOOGL', name: 'Alphabet Inc.', percentChange: -0.5 },
-                { logo: 'icons/MSFT.png', ticker: 'MSFT', name: 'Microsoft Corp.', percentChange: 2.3 },
-                { logo: 'icons/AMZN.png', ticker: 'AMZN', name: 'Amazon.com Inc.', percentChange: -1.1 },
-                { logo: 'icons/TSLA.png', ticker: 'TSLA', name: 'Tesla Inc.', percentChange: 3.5 }
-                // Add more dummy data as needed
-            ];
+           const data = [{'AAPL':1.2}, {'GOOGL':-2}, {'MSFT':.7}];
 
 
 
 
 
-                data.forEach(company => {
+
+
+                for (let i = 0; i < data.length; i++) {
+                ticker = Object.keys(data[i])[0]
+                percentChange = data[i][ticker]
+                logo = 'icons/'+ticker+'.png'
+                name = companyData[ticker]
+
+
+
+
                     const row = document.createElement('tr');
-                    row.style.backgroundColor = company.percentChange > 0 ? '#d5f5e3' : '#fadbd8';
+                    row.style.backgroundColor = percentChange > 0 ? '#d5f5e3' : '#fadbd8';
 
                     const logoCell = document.createElement('td');
                     const logoImg = document.createElement('img');
-                    logoImg.src = company.logo;
-                    logoImg.alt = company.name;
+                    logoImg.src = logo;
+                    logoImg.alt = name;
                     logoImg.width = 20;
                     logoCell.appendChild(logoImg);
                     row.appendChild(logoCell);
 
                     const tickerCell = document.createElement('td');
-                    tickerCell.textContent = company.ticker;
+                    tickerCell.textContent = ticker;
                     row.appendChild(tickerCell);
 
                     const nameCell = document.createElement('td');
-                    nameCell.textContent = company.name;
+                    nameCell.textContent = name;
                     row.appendChild(nameCell);
 
                     const changeCell = document.createElement('td');
                     const changeSpan = document.createElement('span');
-                    changeSpan.textContent = `${company.percentChange}%`;
-                    changeSpan.className = company.percentChange > 0 ? 'up-arrow' : 'down-arrow';
+                    changeSpan.textContent = `${percentChange}%`;
+                    changeSpan.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
                     changeCell.appendChild(changeSpan);
                     row.appendChild(changeCell);
 
                     tableBody.appendChild(row);
-                });
+                }
+
+
+
             }
 
                 catch (error) {

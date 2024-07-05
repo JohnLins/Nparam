@@ -1,0 +1,402 @@
+[
+  {
+    "Symbol": "MSFT",
+    "Security Name": "Microsoft Corporation"
+  },
+  {
+    "Symbol": "AAPL",
+    "Security Name": "Apple Inc"
+  },
+  {
+    "Symbol": "NVDA",
+    "Security Name": "NVIDIA Corporation"
+  },
+  {
+    "Symbol": "GOOGL",
+    "Security Name": "Alphabet Inc."
+  },
+  {
+    "Symbol": "AMZN",
+    "Security Name": "Amazon.com, Inc."
+  },
+  {
+    "Symbol": "LLY",
+    "Security Name": "Eli Lilly and Company"
+  },
+  {
+    "Symbol": "AVGO",
+    "Security Name": "Broadcom Inc."
+  },
+  {
+    "Symbol": "TSLA",
+    "Security Name": "Tesla, Inc."
+  },
+  {
+    "Symbol": "JPM",
+    "Security Name": "JPMorgan Chase & Co."
+  },
+  {
+    "Symbol": "V",
+    "Security Name": "Visa Inc."
+  },
+  {
+    "Symbol": "WMT",
+    "Security Name": "Walmart Inc."
+  },
+  {
+    "Symbol": "XOM",
+    "Security Name": "Exxon Mobil Corporation"
+  },
+  {
+    "Symbol": "UNH",
+    "Security Name": "UnitedHealth Group Incorporated"
+  },
+  {
+    "Symbol": "MA",
+    "Security Name": "Mastercard Incorporated"
+  },
+  {
+    "Symbol": "PG",
+    "Security Name": "The Procter & Gamble Company"
+  },
+  {
+    "Symbol": "ORCL",
+    "Security Name": "Oracle Corporation"
+  },
+  {
+    "Symbol": "COST",
+    "Security Name": "Costco Wholesale Corporation"
+  },
+  {
+    "Symbol": "JNJ",
+    "Security Name": "Johnson & Johnson"
+  },
+  {
+    "Symbol": "HD",
+    "Security Name": "The Home Depot, Inc."
+  },
+  {
+    "Symbol": "BAC",
+    "Security Name": "Bank of America Corporation"
+  },
+  {
+    "Symbol": "NFLX",
+    "Security Name": "Netflix, Inc."
+  },
+  {
+    "Symbol": "CVX",
+    "Security Name": "Chevron Corporation"
+  },
+  {
+    "Symbol": "KO",
+    "Security Name": "The Coca-Cola Company"
+  },
+  {
+    "Symbol": "AMD",
+    "Security Name": "Advanced Micro Devices, Inc."
+  },
+  {
+    "Symbol": "ADBE",
+    "Security Name": "Adobe Inc."
+  },
+  {
+    "Symbol": "CRM",
+    "Security Name": "Salesforce, Inc."
+  },
+  {
+    "Symbol": "QCOM",
+    "Security Name": "QUALCOMM Incorporated"
+  },
+  {
+    "Symbol": "PEP",
+    "Security Name": "PepsiCo, Inc."
+  },
+  {
+    "Symbol": "TMUS",
+    "Security Name": "T-Mobile US, Inc."
+  },
+  {
+    "Symbol": "WFC",
+    "Security Name": "Wells Fargo & Company"
+  },
+  {
+    "Symbol": "CSCO",
+    "Security Name": "Cisco Systems, Inc."
+  },
+  {
+    "Symbol": "MCD",
+    "Security Name": "McDonald's Corporation"
+  },
+  {
+    "Symbol": "DIS",
+    "Security Name": "The Walt Disney Company"
+  },
+  {
+    "Symbol": "TXN",
+    "Security Name": "Texas Instruments Incorporated"
+  },
+  {
+    "Symbol": "INTU",
+    "Security Name": "Intuit Inc."
+  },
+  {
+    "Symbol": "VZ",
+    "Security Name": "Verizon Communications Inc."
+  },
+  {
+    "Symbol": "AXP",
+    "Security Name": "American Express Company"
+  },
+  {
+    "Symbol": "IBM",
+    "Security Name": "International Business Machines Corporation"
+  },
+  {
+    "Symbol": "PFE",
+    "Security Name": "Pfizer Inc."
+  },
+  {
+    "Symbol": "MS",
+    "Security Name": "Morgan Stanley"
+  },
+  {
+    "Symbol": "MU",
+    "Security Name": "Micron Technology, Inc."
+  },
+  {
+    "Symbol": "ISRG",
+    "Security Name": "Intuitive Surgical, Inc."
+  },
+  {
+    "Symbol": "CMCSA",
+    "Security Name": "Comcast Corporation"
+  },
+  {
+    "Symbol": "BX",
+    "Security Name": "Blackstone Inc."
+  },
+  {
+    "Symbol": "UBER",
+    "Security Name": "Uber Technologies, Inc."
+  },
+  {
+    "Symbol": "NKE",
+    "Security Name": "NIKE, Inc."
+  },
+  {
+    "Symbol": "GS",
+    "Security Name": "The Goldman Sachs Group, Inc."
+  },
+  {
+    "Symbol": "INTC",
+    "Security Name": "Intel Corporation"
+  },
+  {
+    "Symbol": "T",
+    "Security Name": "AT&T Inc."
+  },
+  {
+    "Symbol": "SCHW",
+    "Security Name": "The Charles Schwab Corporation"
+  },
+  {
+    "Symbol": "PGR",
+    "Security Name": "The Progressive Corporation"
+  },
+  {
+    "Symbol": "BLK",
+    "Security Name": "BlackRock, Inc."
+  },
+  {
+    "Symbol": "UPS",
+    "Security Name": "United Parcel Service, Inc."
+  },
+  {
+    "Symbol": "ADI",
+    "Security Name": "Analog Devices, Inc."
+  },
+  {
+    "Symbol": "C",
+    "Security Name": "Citigroup Inc."
+  },
+  {
+    "Symbol": "BSX",
+    "Security Name": "Boston Scientific Corporation"
+  },
+  {
+    "Symbol": "REGN",
+    "Security Name": "Regeneron Pharmaceuticals, Inc."
+  },
+  {
+    "Symbol": "LMT",
+    "Security Name": "Lockheed Martin Corporation"
+  },
+  {
+    "Symbol": "BA",
+    "Security Name": "The Boeing Company"
+  },
+  {
+    "Symbol": "PANW",
+    "Security Name": "Palo Alto Networks, Inc."
+  },
+  {
+    "Symbol": "CI",
+    "Security Name": "Cigna Corporation"
+  },
+  {
+    "Symbol": "SBUX",
+    "Security Name": "Starbucks Corporation"
+  },
+  {
+    "Symbol": "CMG",
+    "Security Name": "Chipotle Mexican Grill, Inc."
+  },
+  {
+    "Symbol": "GD",
+    "Security Name": "General Dynamics Corporation"
+  },
+  {
+    "Symbol": "CVS",
+    "Security Name": "CVS Health Corporation"
+  },
+  {
+    "Symbol": "NOC",
+    "Security Name": "Northrop Grumman Corporation"
+  },
+  {
+    "Symbol": "ORLY",
+    "Security Name": "O'Reilly Automotive, Inc."
+  },
+  {
+    "Symbol": "PYPL",
+    "Security Name": "PayPal Holdings, Inc."
+  },
+  {
+    "Symbol": "FDX",
+    "Security Name": "FedEx Corporation"
+  },
+  {
+    "Symbol": "GM",
+    "Security Name": "General Motors Company"
+  },
+  {
+    "Symbol": "COF",
+    "Security Name": "Capital One Financial Corporation"
+  },
+  {
+    "Symbol": "ADSK",
+    "Security Name": "Autodesk, Inc."
+  },
+  {
+    "Symbol": "F",
+    "Security Name": "Ford Motor Company"
+  },
+  {
+    "Symbol": "LHX",
+    "Security Name": "L3Harris Technologies, Inc."
+  },
+  {
+    "Symbol": "ALL",
+    "Security Name": "The Allstate Corporation"
+  },
+  {
+    "Symbol": "FIS",
+    "Security Name": "Fidelity National Information Services, Inc."
+  },
+  {
+    "Symbol": "CHTR",
+    "Security Name": "Charter Communications, Inc."
+  },
+  {
+    "Symbol": "LEN",
+    "Security Name": "Lennar Corporation"
+  },
+  {
+    "Symbol": "D",
+    "Security Name": "Dominion Energy, Inc."
+  },
+  {
+    "Symbol": "IDXX",
+    "Security Name": "IDEXX Laboratories, Inc."
+  },
+  {
+    "Symbol": "EL",
+    "Security Name": "The Estée Lauder Companies Inc."
+  },
+  {
+    "Symbol": "LULU",
+    "Security Name": "Lululemon Athletica Inc."
+  },
+  {
+    "Symbol": "KR",
+    "Security Name": "The Kroger Co."
+  },
+  {
+    "Symbol": "NDAQ",
+    "Security Name": "Nasdaq, Inc."
+  },
+  {
+    "Symbol": "DAL",
+    "Security Name": "Delta Air Lines, Inc."
+  },
+  {
+    "Symbol": "EFX",
+    "Security Name": "Equifax Inc."
+  },
+  {
+    "Symbol": "HPE",
+    "Security Name": "Hewlett Packard Enterprise Company"
+  },
+  {
+    "Symbol": "EBAY",
+    "Security Name": "eBay Inc."
+  },
+  {
+    "Symbol": "BBY",
+    "Security Name": "Best Buy Co., Inc."
+  },
+  {
+    "Symbol": "DPZ",
+    "Security Name": "Domino's Pizza, Inc."
+  },
+  {
+    "Symbol": "SWKS",
+    "Security Name": "Skyworks Solutions, Inc."
+  },
+  {
+    "Symbol": "LUV",
+    "Security Name": "Southwest Airlines Co."
+  },
+  {
+    "Symbol": "UAL",
+    "Security Name": "United Airlines Holdings, Inc."
+  },
+  {
+    "Symbol": "CFG",
+    "Security Name": "Citizens Financial Group, Inc."
+  },
+  {
+    "Symbol": "MRO",
+    "Security Name": "Marathon Oil Corporation"
+  },
+  {
+    "Symbol": "FOX",
+    "Security Name": "Fox Corporation"
+  },
+  {
+    "Symbol": "ETSY",
+    "Security Name": "Etsy, Inc."
+  },
+  {
+    "Symbol": "IVZ",
+    "Security Name": "Invesco Ltd."
+  },
+  {
+    "Symbol": "FB",
+    "Security Name": "Meta"
+  },
+  {
+    "Symbol": "NET",
+    "Security Name": "Cloudflare"
+  }
+]
