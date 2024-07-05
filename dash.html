@@ -79,13 +79,19 @@
             overflow-x: auto;
         }
 
-        @media only screen and (max-width: 480px) {
+        #note {
+            margin: 110px;
+            font-size: 30px;
+            color: gray;
+        }
+
+         @media only screen and (max-width: 600px) {
             #table-section {
                 margin-top: 5px;
             }
 
             #note {
-                margin: 110px;
+                margin: 10px;
                 font-size: 10px;
             }
         }
@@ -109,6 +115,7 @@
         .down-arrow {
             color: red;
         }
+
         #loading-message {
             display: none;
             margin-top: 20px;
@@ -116,11 +123,7 @@
             color: lightcoral;
         }
 
-        #note {
-            margin: 110px;
-            font-size: 30px;
-            color: gray;
-        }
+
     </style>
 </head>
 <body>
@@ -186,13 +189,22 @@
 
                 //Simulating an API call with dummy data
             await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate a delay
+            // const raw = [
+            //     { logo: 'https://via.placeholder.com/50', ticker: 'AAPL', name: 'Apple Inc.', percentChange: 1.2 },
+            //     { logo: 'https://via.placeholder.com/50', ticker: 'GOOGL', name: 'Alphabet Inc.', percentChange: -0.5 },
+            //     { logo: 'https://via.placeholder.com/50', ticker: 'MSFT', name: 'Microsoft Corp.', percentChange: 2.3 },
+            //     { logo: 'https://via.placeholder.com/50', ticker: 'AMZN', name: 'Amazon.com Inc.', percentChange: -1.1 },
+            //     { logo: 'https://via.placeholder.com/50', ticker: 'TSLA', name: 'Tesla Inc.', percentChange: 3.5 }
+            //     // Add more dummy data as needed
+            // ];
+
 
             const data = [
-                { logo: 'https://via.placeholder.com/50', ticker: 'AAPL', name: 'Apple Inc.', percentChange: 1.2 },
-                { logo: 'https://via.placeholder.com/50', ticker: 'GOOGL', name: 'Alphabet Inc.', percentChange: -0.5 },
-                { logo: 'https://via.placeholder.com/50', ticker: 'MSFT', name: 'Microsoft Corp.', percentChange: 2.3 },
-                { logo: 'https://via.placeholder.com/50', ticker: 'AMZN', name: 'Amazon.com Inc.', percentChange: -1.1 },
-                { logo: 'https://via.placeholder.com/50', ticker: 'TSLA', name: 'Tesla Inc.', percentChange: 3.5 }
+                { logo: 'icons/AAPL.png', ticker: 'AAPL', name: 'Apple Inc.', percentChange: 1.2 },
+                { logo: 'icons/GOOGL.png', ticker: 'GOOGL', name: 'Alphabet Inc.', percentChange: -0.5 },
+                { logo: 'icons/MSFT.png', ticker: 'MSFT', name: 'Microsoft Corp.', percentChange: 2.3 },
+                { logo: 'icons/AMZN.png', ticker: 'AMZN', name: 'Amazon.com Inc.', percentChange: -1.1 },
+                { logo: 'icons/TSLA.png', ticker: 'TSLA', name: 'Tesla Inc.', percentChange: 3.5 }
                 // Add more dummy data as needed
             ];
 
@@ -202,6 +214,7 @@
 
                 data.forEach(company => {
                     const row = document.createElement('tr');
+                    row.style.backgroundColor = company.percentChange > 0 ? '#d5f5e3' : '#fadbd8';
 
                     const logoCell = document.createElement('td');
                     const logoImg = document.createElement('img');
