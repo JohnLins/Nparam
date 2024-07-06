@@ -167,26 +167,6 @@
 
 
 
-  let company = {};
-
-function fetchAndPopulateDictionary() {
-    fetch('https://nparam.com/company.json')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(c => {
-                company[c.Symbol] = {
-                    securityName: c["Security Name"]
-                    // You can add more properties here if needed
-                };
-            });
-            console.log("Global dictionary populated:", company);
-        })
-        .catch(error => {
-            console.error('Error fetching JSON:', error);
-        });
-}
-
-fetchAndPopulateDictionary();
 
 
 
@@ -213,6 +193,25 @@ fetchAndPopulateDictionary();
                     console.log(data);
 
 
+
+
+
+        let company = {};
+
+            fetch('https://nparam.com/company.json')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(c => {
+                        company[c.Symbol] = {
+                            securityName: c["Security Name"]
+                            // You can add more properties here if needed
+                        };
+                    });
+                    console.log("Global dictionary populated:", company);
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                });
 
 
 
