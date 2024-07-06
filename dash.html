@@ -202,7 +202,7 @@ fetchAndPopulateDictionary();
             tableBody.innerHTML = '';
 
              try {
-                fetch(`https://localhost:8100/predict?prompt=${encodeURIComponent(prompt)}`)
+                fetch(`http://localhost:8100/predict?prompt=${encodeURIComponent(prompt)}`)
                 .then(response => {
                     if (!response.ok) {
                     throw new Error('Network response was not ok');
