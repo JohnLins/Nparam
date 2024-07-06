@@ -196,22 +196,22 @@
 
 
 
-        let company = {};
-
-            fetch('https://nparam.com/company.json')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(c => {
-                        company[c.Symbol] = {
-                            securityName: c["Security Name"]
-                            // You can add more properties here if needed
-                        };
-                    });
-                    console.log("Global dictionary populated:", company);
-                })
-                .catch(error => {
-                    console.error('Error fetching JSON:', error);
-                });
+        // let company = {};
+        //
+        //     fetch('https://nparam.com/company.json')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             data.forEach(c => {
+        //                 company[c.Symbol] = {
+        //                     securityName: c["Security Name"]
+        //                     // You can add more properties here if needed
+        //                 };
+        //             });
+        //             console.log("Global dictionary populated:", company);
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching JSON:', error);
+        //         });
 
 
 
@@ -227,7 +227,7 @@
                 ticker = Object.keys(data[i])[0]
                 percentChange = data[i][ticker]
                 logo = 'icons/'+ticker+'.png'
-                name = company[ticker].securityName
+                name = "NAME"//company[ticker].securityName
 
 
 
