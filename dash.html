@@ -189,12 +189,12 @@
                     }
                     return response.json();
                 })
-                .then(data => {
-                    console.log(data);
+                .then(dataraw => {
+                    console.log(dataraw);
 
 
-                const data = JSON.parse(data);
-
+                const data = JSON.parse(dataraw);
+                console.log(data);
 
 
         // let company = {};
