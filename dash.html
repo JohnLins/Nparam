@@ -225,8 +225,8 @@
 
 
                 for (let i = 0; i < data.length; i++) {
-                ticker = Object.keys(data[i])[0]
-                percentChange = data[i][ticker]
+                ticker = data[i][0]
+                percentChange = data[i][1]
                 logo = 'icons/'+ticker+'.png'
                 name = "NAME"//company[ticker].securityName
 
