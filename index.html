@@ -66,7 +66,7 @@
 
 
 <center>
-<h1 id="largetitle">Nparam <span style="color: lightcoral">Bull</span> <span id="version">0.1 | 113.2M</span></h1><br/>
+<h1 id="largetitle">Nparam <span style="color: lightcoral">Bull</span> <span id="version">0.1 | 113M</span></h1><br/>
 <h3>A language model that predicts stock and asset prices from natural language prompts</h3>
 </center>
 <br/>
@@ -81,7 +81,13 @@
 <center>
 
 
-<img src="dash.png" id="vid"/>
+<video id="vid" controls autoplay muted>
+  <source src="demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+
 <!--<iframe id="vid" src="https://www.youtube.com/embed/yKO9i-7ALn8?si=mQvKa-k2Idyno5Gw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
 
 </center>
@@ -92,6 +98,11 @@
 <center>
 <h1>Model Overview</h1><br/>
 <embed src="model.png" id="model"/>
+<br/>
+<h1>Anti-Similar Batch Regularization</h1><br/>
+I designed a potentially novel regularization term that summates all positive cosine similarity values between all output tensors in batch X of size n. Adding this regularization term to the loss increased diversity of the stock output predictions without significantly affecting the base-line loss.<br/>
+<embed src="reg.png" class="reg"/><br/>
+<img src="last_epoch.png" width="reg"/>
 </center>
 
 
@@ -115,8 +126,10 @@ The L1 validation loss was reduced from 0.86% to 0.777% during the 3-day trainin
 
 </div>
 
-<img src="loss.png" width="500px"/>
-<img src="dates.png" width="500px"/>
+<img src="loss.png" class="reg"/>
+<img src="dates.png" class="reg"/>
+
+
 </center>
 
 
@@ -342,9 +355,14 @@ newiter(0);
   height:auto;
 }
 
+.reg {
+  width:20%;
+  height:auto;
+}
+
 #vid {
   width:1120px;
-  height:630px;
+  object-fit: fill;
   box-shadow: 0px 0px 15px lightcoral;
 }
 
@@ -354,10 +372,15 @@ newiter(0);
     width:99%;
     height:auto;
   }
+  #reg {
+  width:80%;
+  height:auto;
+}
   #vid {
     width:95%;
     height:auto;
     margin:0;
+    object-fit: cover;
   }
   #largetitle {
   font-size: 45px;
