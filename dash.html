@@ -27,7 +27,7 @@
             flex-direction: column;
             align-items: center;
             padding: 20px 0;
-            margin-bottom: 40px;
+            background-color:white;
         }
         h1 {
         font-family: "Playfair Display SC", serif;
@@ -57,6 +57,7 @@
         }
 
         #submit-button {
+        margin-bottom:40px;
             width: 90%;
             padding: 10px;
             font-size: 18px;
@@ -141,7 +142,6 @@
         <table id="stock-table">
             <thead>
                 <tr>
-                    <th>Logo</th>
                     <th>Ticker Symbol</th>
                     <th>Company Name</th>
                     <th>% Change (AI Prediction)</th>
@@ -160,127 +160,94 @@
     </div>
     <div id="loading-message">Generating...</div>
     <div id="input-section">
+
         <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
         <button id="submit-button"><b>Generate ✦</b></button>
+
     </div>
     <script>
 
 
+document.getElementById('submit-button').addEventListener('click', async () => {
+    const prompt = document.getElementById('prompt-input').value;
+    const loadingMessage = document.getElementById('loading-message');
+    const tableBody = document.querySelector('#stock-table tbody');
+    const note = document.getElementById('note'); // Added to avoid errors
+    note.style.display = "none";
+    loadingMessage.style.display = 'block';
 
+    tableBody.innerHTML = '';
 
+    try {
+        const companyResponse = await fetch('https://nparam.com/company.json');
+        if (!companyResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const companyData = await companyResponse.json();
+        const company = {};
+        companyData.forEach(c => {
+            company[c.Symbol] = {
+                securityName: c["Security Name"]
+                // You can add more properties here if needed
+            };
+        });
+        console.log("Global dictionary populated:", company);
 
+        const response = await fetch(`http://localhost:8100/predict?prompt=${encodeURIComponent(prompt)}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const dataraw = await response.json();
+        console.log(dataraw);
 
+        const data = JSON.parse(dataraw.replace(/\(/g, '[').replace(/\)/g, ']').replace(/'/g, '"'));
+        console.log(data);
 
+        for (let i = 0; i < data.length; i++) {
+            const ticker = data[i][0];
+            const percentChange = data[i][1];
+            const logo = 'icons/' + ticker + '.png';
+            const name = company[ticker]?.securityName || 'Unknown'; // Using optional chaining and default value
 
-        document.getElementById('submit-button').addEventListener('click', async () => {
-            const prompt = document.getElementById('prompt-input').value;
-            const loadingMessage = document.getElementById('loading-message');
-            const tableBody = document.querySelector('#stock-table tbody');
-            note.style.display = "none"
-            loadingMessage.style.display = 'block';
+            const row = document.createElement('tr');
+            row.style.backgroundColor = percentChange > 0 ? '#d5f5e3' : '#fadbd8';
 
-            tableBody.innerHTML = '';
+            const logoImg = document.createElement('img');
+            logoImg.src = logo;
+            logoImg.alt = name;
+            logoImg.width = 20;
+            logoImg.style.marginRight = '10px';
 
-             try {
-                fetch(`http://localhost:8100/predict?prompt=${encodeURIComponent(prompt)}`)
-                .then(response => {
-                    if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(dataraw => {
-                    console.log(dataraw);
+            const tickerCell = document.createElement('td');
+            tickerCell.textContent = ticker;
+            row.appendChild(tickerCell);
 
+            const nameCell = document.createElement('td');
+            nameCell.appendChild(logoImg);
+            const compName = document.createElement('span');
+            compName.textContent = name;
+            nameCell.appendChild(compName);
+            row.appendChild(nameCell);
 
-                const data = JSON.parse(dataraw.replace(/\(/g, '[').replace(/\)/g, ']').replace(/'/g, '"'));
-                console.log(data);
+            const changeCell = document.createElement('td');
+            const changeSpan = document.createElement('span');
+            changeSpan.textContent = `${percentChange}%`;
+            const arrow = document.createElement('span');
+            arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
+            arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
+            changeCell.appendChild(arrow);
+            changeCell.appendChild(changeSpan);
+            row.appendChild(changeCell);
 
+            tableBody.appendChild(row);
+        }
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    } finally {
+        loadingMessage.style.display = 'none';
+    }
+});
 
-        // let company = {};
-        //
-        //     fetch('https://nparam.com/company.json')
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             data.forEach(c => {
-        //                 company[c.Symbol] = {
-        //                     securityName: c["Security Name"]
-        //                     // You can add more properties here if needed
-        //                 };
-        //             });
-        //             console.log("Global dictionary populated:", company);
-        //         })
-        //         .catch(error => {
-        //             console.error('Error fetching JSON:', error);
-        //         });
-
-
-
-          // const data = [{'AAPL':1.2}, {'GOOGL':-2}, {'MSFT':.7}];
-
-
-
-
-
-
-
-                for (let i = 0; i < data.length; i++) {
-                ticker = data[i][0]
-                percentChange = data[i][1]
-                logo = 'icons/'+ticker+'.png'
-                name = "NAME"//company[ticker].securityName
-
-
-
-
-                    const row = document.createElement('tr');
-                    row.style.backgroundColor = percentChange > 0 ? '#d5f5e3' : '#fadbd8';
-
-                    const logoCell = document.createElement('td');
-                    const logoImg = document.createElement('img');
-                    logoImg.src = logo;
-                    logoImg.alt = name;
-                    logoImg.width = 20;
-                    logoCell.appendChild(logoImg);
-                    row.appendChild(logoCell);
-
-                    const tickerCell = document.createElement('td');
-                    tickerCell.textContent = ticker;
-                    row.appendChild(tickerCell);
-
-                    const nameCell = document.createElement('td');
-                    nameCell.textContent = name;
-                    row.appendChild(nameCell);
-
-                    const changeCell = document.createElement('td');
-                    const changeSpan = document.createElement('span');
-                    changeSpan.textContent = `${percentChange}%`;
-                    changeSpan.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
-                    changeCell.appendChild(changeSpan);
-                    row.appendChild(changeCell);
-
-                    tableBody.appendChild(row);
-                }
-
-
-
-
-                 })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-
-
-
-            }
-
-                catch (error) {
-                    console.error('Error fetching data:', error);
-                } finally {
-                    loadingMessage.style.display = 'none';
-                }
-            }
-        );
     </script>
 </body>
 </html>
