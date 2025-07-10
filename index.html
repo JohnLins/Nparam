@@ -73,7 +73,7 @@
 <br/>
 <br/>
 <center>
-<a href="https://nparam.com/dash.html" class="ctabtn" style="background-color: lightcoral;">Launch ➤</a> <a href="#" class="ctabtn">Technical Report</a> <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0NuFY8BBwFbMf8_m-iMVB_jtedxk4h7AL_HcciVoxQU25ZQ/viewform?usp=sf_link" class="ctabtn">Contact</a>
+<a href="https://nparam.com/dash.html" class="ctabtn" style="background-color: lightcoral;">Launch ➤</a> <a href="#" class="ctabtn">Technical Report</a> <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0NuFY8BBwFbMf8_m-iMVB_jtedxk4h7AL_HcciVoxQU25ZQ/viewform?usp=sf_link" class="ctabtn" id="contact">Contact</a>
 </center>
 
 
@@ -93,6 +93,8 @@
 </center>
 
 
+</main>
+<div id="middle">
 
 <br/><br/><br/><br/><br/><br/>
 <center>
@@ -118,7 +120,7 @@ Nparam’s mission is to become the most sophisticated market research tool–To
 </center>
 
 
-<br/><br/><br/><br/>
+<!--<br/><br/><br/><br/>
 <center>
 <h1>Backtest</h1><br/>
 <div style="width:90%; text-align: left;">
@@ -130,7 +132,7 @@ tbd
 
 
 </center>
-
+-->
 
 
 
@@ -207,8 +209,8 @@ tbd
 
 
   </div>
+</div>
 
-</main>
 
 <br/>
 <br/>
@@ -428,7 +430,18 @@ html {
 }
 
 
+@media (max-width: 768px) {
+  #contact{
+    display: none;
+  }
+}
 
+#middle {
+display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  min-height: 100vh; /* ensure at least full screen height */
+}
 
 .button:hover {
   color: lightcoral;
