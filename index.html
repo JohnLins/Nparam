@@ -66,14 +66,14 @@
 
 
 <center>
-<h1 id="largetitle">Nparam <span style="color: lightcoral">Bull</span> <span id="version">0.1 | 113M</span></h1><br/>
-<h3>A language model that predicts stock and asset prices from natural language prompts</h3>
+<h1 id="largetitle"><span style="color: white">Nparam</span> <span style="color: lightcoral">Bull</span> <span id="version"></span></h1><br/>
+<h3>Large Stock Model (LSM) — Prompt-to-Prediction — 7.5B Parameters</h3>
 </center>
 <br/>
 <br/>
 <br/>
 <center>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSc0NuFY8BBwFbMf8_m-iMVB_jtedxk4h7AL_HcciVoxQU25ZQ/viewform?usp=sf_link" id="waitlist">Claim your spot on the waitlist</a>
+<a href="https://nparam.com/dash.html" class="ctabtn" style="background-color: lightcoral;">Launch ➤</a> <a href="#" class="ctabtn">Technical Report</a> <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0NuFY8BBwFbMf8_m-iMVB_jtedxk4h7AL_HcciVoxQU25ZQ/viewform?usp=sf_link" class="ctabtn">Contact</a>
 </center>
 
 
@@ -96,6 +96,8 @@
 
 <br/><br/><br/><br/><br/><br/>
 <center>
+
+<!--
 <h1>Model Overview</h1><br/>
 <embed src="model.png" id="model"/>
 <br/>
@@ -106,9 +108,7 @@ A potentially novel regularization term that summates all positive cosine simila
 </center>
 
 
-
-
-<br/><br/><br/><br/>
+-->
 <center>
 <h1>Mission Statement</h1><br/>
 <div style="width:90%; text-align: left;">
@@ -120,14 +120,13 @@ Nparam’s mission is to become the most sophisticated market research tool–To
 
 <br/><br/><br/><br/>
 <center>
-<h1>Results and Expectations</h1><br/>
+<h1>Backtest</h1><br/>
 <div style="width:90%; text-align: left;">
-The L1 validation loss was reduced from 0.86% to 0.777% during the 3-day training process. 0.777% is still a high error rate for predicting daily stock prices, but these results are sufficient for a proof-of-concept MVP. Every future subsequent Nparam Bull model will have a lower validation loss than the previous.
+tbd
 
 </div>
 
-<img src="loss.png" class="reg"/>
-<img src="dates.png" class="reg"/>
+
 
 
 </center>
@@ -216,7 +215,7 @@ The L1 validation loss was reduced from 0.86% to 0.777% during the 3-day trainin
 
 </body>
 <script>
-  NUMPARTICLES = 30;
+  NUMPARTICLES = 35;
   function randf(min, max) {
     return Math.random() * (max - min) + min;
   }
@@ -225,7 +224,7 @@ The L1 validation loss was reduced from 0.86% to 0.777% during the 3-day trainin
   class Particle {
     constructor() {
       this.x = randf(2, window.innerWidth-2);
-      this.y = randf(2,document.body.scrollHeight-2);
+      this.y = randf(2,window.innerHeight-2);
       this.initial_x = this.x;
       this.initial_y = this.y;
       this.opacity = .3;
@@ -254,13 +253,7 @@ The L1 validation loss was reduced from 0.86% to 0.777% during the 3-day trainin
 
 
 const body = document.body;
-body.addEventListener('mousemove', handleMouseMove);
-let X = 0;
-let Y = 0;
- function handleMouseMove(event) {
-    X = event.clientX;
-    Y = event.clientY;
-  }
+
 
  function newiter(index) {
     setTimeout(function() {
@@ -269,13 +262,13 @@ let Y = 0;
 
 
 
-            theta = 0;
-            if(X != 0 && Y!= 0){
-            angleToMouse = Math.atan2(Y-particles[i].y, X-particles[i].x);
-              theta = randf(angleToMouse-(Math.PI/6),angleToMouse+(Math.PI/6));
-            }else {
-              theta = randf(-2*Math.PI,2*Math.PI);
-            }
+            // theta = 0;
+            // if(X != 0 && Y!= 0){
+            // angleToMouse = Math.atan2(Y-particles[i].y, X-particles[i].x);
+            //   theta = randf(angleToMouse-(Math.PI/6),angleToMouse+(Math.PI/6));
+            // }else {
+              theta = randf(-Math.PI/4,-(Math.PI/4+Math.PI/2));
+            //}
 
             next_y = particles[i].y + randf(0,600)*Math.sin(theta);
             next_x = particles[i].x + randf(0,600)*Math.cos(theta);
@@ -322,12 +315,13 @@ newiter(0);
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
   .particle{
     transition: all 2.4s ease;
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
     background-color: lightcoral;
     z-index: -9999;
     
@@ -395,7 +389,6 @@ newiter(0);
 
 
 * {
-color: black;
 margin: 0;
 padding: 0;
 }
@@ -403,8 +396,11 @@ html {
 overflow-x: hidden !important;
 }
 body{
+  color: white;
   margin: 30px;
-
+  background-color: #36393e;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
 }
 
 main{
@@ -441,23 +437,22 @@ html {
   }
 
 
-  #waitlist{
-    background-color: lightcoral;
-    padding: 10px;
+  .ctabtn{
+    padding: 15px;
+    margin: 5px;
     color: white;
     border: 0;
     text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0px 0px 0px 15px #fdf1f1;
     transition: 0.3s ease-in-out;
+border: 2px solid lightcoral;
   }
-  #waitlist:hover {
-    background-color: #fdf1f1;
-    color: lightcoral;
+  .ctabtn:hover {
+    background-color: white;
+    color: #36393e;
     cursor: pointer;
-    box-shadow: 0px 0px 0px 15px white;
+    box-shadow: 0px 0px 0px 5px white;
   }
-  #waitlist input{
+  .ctabtn input{
     margin: 5px;
   }
 </style>
