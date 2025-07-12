@@ -67,7 +67,7 @@
 
 <center>
 <h1 id="largetitle"><span style="color: white">Nparam</span> <span style="color: lightcoral">Bull</span> <span id="version"></span></h1><br/>
-<h3>Large Stock Model (LSM) — Prompt-to-Prediction — 7.5B Parameters</h3>
+<h3 style="font-weight:340">A <b>Large Stock Model (LSM)</b> — fast predictions from textual market data</h3>
 </center>
 <br/>
 <br/>
@@ -112,9 +112,9 @@ A potentially novel regularization term that summates all positive cosine simila
 
 -->
 <center>
-<h1>Mission Statement</h1><br/>
-<div style="width:90%; text-align: left;">
-Nparam’s mission is to become the most sophisticated market research tool–To leverage computational mathematics and sophisticated machine learning architectures to perform market research from raw natural language input. Nparam is designed for investors who possess semi-public information that is not yet priced into the market, but need a fast intelligent system to find which assets are expected to rise or fall from said information. Currently, Nparam Bull v0.1 is trained on tens of thousands of financial and market sentiment documents and is back tested on stock data from the past 2 decades.
+<h1>About</h1><br/>
+<div style="width:60%; text-align: left;">
+Nparam Bull is a fast inference model that <i>predicts the instantaneous price fluctuation of stocks given raw textual market data</i>. Bull was trained on decades of financial and market news correlated with the daily percent changes of 100 top stocks; the whole model is ~7.5 billion parameters. This marks a new model paradigm called Large <b>Stock Models (LSM)</b>, similar to the transformer architecture found in LLMs. Here, stock are represented with high dimensional contextualized embeddings, not just word tokens.
 
 </div>
 </center>
@@ -135,7 +135,7 @@ tbd
 -->
 
 
-
+<!--
 <br/><br/><br/><br/>
 <center>
 <h1>References</h1>
@@ -173,7 +173,7 @@ tbd
 
 
 
-</div>
+</div>-->
 </center>
 
 <!--
@@ -216,6 +216,117 @@ tbd
 <br/>
 
 </body>
+
+
+
+
+<script>
+const NUMPARTICLES = 35;
+function randf(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+class Particle {
+  constructor(i) {
+    this.x = randf(2, window.innerWidth - 2);
+    this.y = randf(2, window.innerHeight - 2);
+    this.opacity = 0.3;
+    this.rotation = randf(0, 360);
+    this.element = document.createElement("div");
+    this.element.className = "particle";
+    this.element.id = "particle_" + i;
+    document.body.appendChild(this.element);
+    this.updateDOM();
+  }
+
+  updateDOM() {
+    this.element.style.top = this.y + "px";
+    this.element.style.left = this.x + "px";
+    this.element.style.opacity = this.opacity;
+    this.element.style.transform = `rotate(${this.rotation}deg)`;
+  }
+
+moveToEdge() {
+
+  const speed = randf(.1, 3); // this goes inside moveToEdge()
+  this.element.style.transition = `top ${speed}s ease, left ${speed}s ease, opacity ${speed}s ease, transform ${speed}s ease`;
+
+
+  const px = this.x;
+  const py = this.y;
+  const width = window.innerWidth;
+  const height = document.body.scrollHeight;
+
+  // Distances to edges
+  const distances = {
+    top: py,
+    left: px,
+    right: width - px,
+  };
+
+  // Find closest edge
+  const closestEdge = Object.entries(distances).sort((a, b) => a[1] - b[1])[0][0];
+
+  // Calculate base angle toward closest edge
+  let baseAngle;
+  if (closestEdge === "top") {
+    baseAngle = -Math.PI / 2;
+  } else if (closestEdge === "left") {
+    baseAngle = Math.PI; // left
+  } else if (closestEdge === "right") {
+    baseAngle = 0; // right
+  }
+
+  // Add narrow randomness to the angle (±20 degrees)
+  const angle = baseAngle + randf(-Math.PI / 1.1, Math.PI / 1.1); // ~±20°
+
+  // Move a random distance in that direction
+  const distance = randf(30, 400);
+  const dx = Math.cos(angle) * distance;
+  const dy = Math.sin(angle) * distance;
+
+  // Update position with bounds
+  this.x = Math.max(2, Math.min(width - 2, this.x + dx));
+  this.y = Math.max(2, Math.min(height - 2, this.y + dy));
+
+  // Visual flair
+  this.opacity = 0.2 + Math.random() * 0.5;
+  this.rotation += randf(-90, 90);
+  this.updateDOM();
+}
+
+}
+
+// Initialize
+const particles = [];
+for (let i = 0; i < NUMPARTICLES; i++) {
+  particles.push(new Particle(i));
+}
+
+// Randomly trigger particle movement to edges
+function loopRandomMoves() {
+  const numToMove = Math.floor(randf(1, NUMPARTICLES / 2));
+  const indexes = [];
+
+  while (indexes.length < numToMove) {
+    const idx = Math.floor(randf(0, NUMPARTICLES));
+    if (!indexes.includes(idx)) indexes.push(idx);
+  }
+
+  for (let idx of indexes) {
+    setTimeout(() => {
+      particles[idx].moveToEdge();
+    }, randf(500, 4000)); // random delay before moving
+  }
+
+  // Repeat randomly
+  setTimeout(loopRandomMoves, randf(1000, 3000));
+}
+
+loopRandomMoves();
+</script>
+
+<!--
 <script>
   NUMPARTICLES = 35;
   function randf(min, max) {
@@ -310,7 +421,7 @@ const body = document.body;
 newiter(0);
 
 
-</script>
+</script>-->
 
 
 
