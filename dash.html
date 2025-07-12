@@ -18,7 +18,71 @@
             flex-direction: column;
             align-items: center;
             color: #333;
+            background-color: #36393e;
         }
+
+
+
+
+
+#input-row {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    align-items: stretch; /* Ensures equal height */
+    justify-content: space-between;
+}
+
+#prompt-input {
+    width: 83%;
+    font-size: 18px;
+    border: 1px solid lightcoral;
+    background-color: #36393e;
+    color: white;
+    padding: 10px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.spacer {
+    width: 1%;
+}
+
+#submit-button {
+    width: 16%;
+    font-size:35px;
+    background-color: lightcoral;
+    color: #36393e;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+#submit-button:hover {
+    background-color: lightgray;
+}
+
+@media (max-width: 600px) {
+    #input-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .spacer {
+        display: none;
+    }
+
+    #prompt-input, #submit-button {
+        width: 95%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+}
+
+
+
+
+
         #input-section {
             position: fixed;
             bottom: 0;
@@ -27,7 +91,7 @@
             flex-direction: column;
             align-items: center;
             padding: 20px 0;
-            background-color:white;
+            background-color:#36393e;
         }
         h1 {
         font-family: "Playfair Display SC", serif;
@@ -38,42 +102,12 @@
         margin-top: 20px;
         }
 
-        #prompt-input {
-            width: 90%;
 
-            font-size: 18px;
-            border: 0;
-            /*box-shadow: 0px 0px 15px lightgray;*/
-            border: 1px solid lightcoral;
 
-            margin-bottom: 20px;
-            height: 80px;
-        }
 
-        #prompt-input::placeholder {
-        padding: 30px;
-        color: lightcoral;
-        background-color: #fdf1f1
-        }
 
-        #submit-button {
-        margin-bottom:40px;
-            width: 90%;
-            padding: 10px;
-            font-size: 18px;
-            background-color: lightcoral;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        #submit-button:hover {
-            background-color: lightgray;
-        }
-        @media (max-width: 600px) {
-            #prompt-input, #submit-button {
-                width: 95%;
-            }
-        }
+
+
         #table-section {
             margin-top: 50px;
             width: 90%;
@@ -100,15 +134,18 @@
         table {
             width: 100%;
             border-collapse: collapse;
+
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid #36393e;
+            padding: 3px;
+            padding-left: 6px;
             text-align: left;
+            font-weight: 450;
         }
         th {
             background-color: lightcoral;
-            color: white;
+            color: #36393e;
         }
         .up-arrow {
             color: green;
@@ -131,10 +168,6 @@
 
 
 
-
-<nav>
-<img src="nparam.png" height="47px" style="float: left;"/><h1 style="float: right;margin-left: 10px;">Nparam Bull</h1>
-</nav>
 <br/><br/>
 
 
@@ -161,8 +194,12 @@
     <div id="loading-message">Generating...</div>
     <div id="input-section">
 
-        <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
-        <button id="submit-button"><b>Generate ✦</b></button>
+        <div id="input-row">
+            <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
+            <div class="spacer"></div>
+            <button id="submit-button"><b>⬆</b></button>
+        </div>
+
 
     </div>
     <script>
