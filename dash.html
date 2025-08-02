@@ -22,7 +22,17 @@
         }
 
 
+#apibtn {
 
+color:lightcoral; height: 30px; border:1px solid lightcoral; padding: 5px 5% 2px 5%;font-weight:bold; margin-top: 55px;
+
+}
+
+#apibtn:hover {
+background-color: lightcoral;
+color:#36393e;
+cursor: pointer;
+}
 
 
 #input-row {
@@ -90,7 +100,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
+            padding: 25px 0;
             background-color:#36393e;
         }
         h1 {
@@ -172,9 +182,9 @@
 
 
     <div id="table-section">
-    <img src="nparam.png" style="float: left;height: 30px;margin: 5px 0px 5px 0px"/> <span style="margin: 5px; color: gray"><span style="color:lightcoral">Nparam Bull</span> V2.3 7.5B</span>
+    <img src="nparam.png" style="float: left;height: 30px;margin: 5px 0px 5px 0px"/> <span style="margin: 5px; color: gray"><span style="color:lightcoral">Nparam Bull</span> V0.7 360M+</span>
 
-    <div style="background-color:lightcoral; height: 30px;float:right; border:1px solid #36393e; padding: 5px 20% 2px 20%;font-weight:bold">API Dashboard ➡</div>
+
         <table id="stock-table">
             <thead>
                 <tr>
@@ -201,8 +211,10 @@
             <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
             <div class="spacer"></div>
             <button id="submit-button"><b>⬆</b></button>
-        </div>
 
+        </div>
+<br/><br/><br/>
+            <div id="apibtn">API Dashboard ➡</div>
 
     </div>
     <script>
