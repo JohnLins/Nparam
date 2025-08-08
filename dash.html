@@ -22,7 +22,17 @@
         }
 
 
+#apibtn {
 
+color:lightcoral; height: 30px; border:1px solid lightcoral; padding: 5px 5% 2px 5%;font-weight:bold; margin-top: 55px;
+
+}
+
+#apibtn:hover {
+background-color: lightcoral;
+color:#36393e;
+cursor: pointer;
+}
 
 
 #input-row {
@@ -90,7 +100,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
+            padding: 25px 0;
             background-color:#36393e;
         }
         h1 {
@@ -172,9 +182,9 @@
 
 
     <div id="table-section">
-    <img src="nparam.png" style="float: left;height: 30px;margin: 5px 0px 5px 0px"/> <span style="margin: 5px; color: gray"><span style="color:lightcoral">Nparam Bull</span> V2.3 7.5B</span>
+    <img src="nparam.png" style="float: left;height: 30px;margin: 5px 0px 5px 0px"/> <span style="margin: 5px; color: gray"><span style="color:lightcoral">Nparam Bull</span> V0.7 360M+</span>
 
-    <div style="background-color:lightcoral; height: 30px;float:right; border:1px solid #36393e; padding: 5px 20% 2px 20%;font-weight:bold">API Dashboard ➡</div>
+
         <table id="stock-table">
             <thead>
                 <tr>
@@ -201,68 +211,65 @@
             <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
             <div class="spacer"></div>
             <button id="submit-button"><b>⬆</b></button>
-        </div>
 
+        </div>
+<br/><br/><br/>
+            <div id="apibtn">API Dashboard ➡</div>
 
     </div>
-    <script>
 
 
+
+ <script>
 document.getElementById('submit-button').addEventListener('click', async () => {
     const prompt = document.getElementById('prompt-input').value;
     const loadingMessage = document.getElementById('loading-message');
     const tableBody = document.querySelector('#stock-table tbody');
-    const note = document.getElementById('note'); // Added to avoid errors
+    const note = document.getElementById('note');
+
     note.style.display = "none";
     loadingMessage.style.display = 'block';
-
     tableBody.innerHTML = '';
 
     try {
+        // Load company names
         const companyResponse = await fetch('https://nparam.com/company.json');
-        if (!companyResponse.ok) {
-            throw new Error('Network response was not ok');
-        }
+        if (!companyResponse.ok) throw new Error('Failed to load company data');
         const companyData = await companyResponse.json();
         const company = {};
         companyData.forEach(c => {
-            company[c.Symbol] = {
-                securityName: c["Security Name"]
-                // You can add more properties here if needed
-            };
+            company[c.Symbol] = { securityName: c["Security Name"] };
         });
-        console.log("Global dictionary populated:", company);
 
-        const response = await fetch(`http://localhost:8100/predict?prompt=${encodeURIComponent(prompt)}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const dataraw = await response.json();
-        console.log(dataraw);
+        // Call local Flask API with POST JSON body
+        const response = await fetch("http://localhost:500/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ insight: prompt })
+        });
+        if (!response.ok) throw new Error('Prediction API request failed');
 
-        const data = JSON.parse(dataraw.replace(/\(/g, '[').replace(/\)/g, ']').replace(/'/g, '"'));
-        console.log(data);
+        // This is already JSON {ticker: percent}
+        const preds = await response.json();
 
-        for (let i = 0; i < data.length; i++) {
-            const ticker = data[i][0];
-            const percentChange = data[i][1];
+        // Loop over predictions
+        Object.entries(preds).forEach(([ticker, percentChange]) => {
             const logo = 'icons/' + ticker + '.png';
-            const name = company[ticker]?.securityName || 'Unknown'; // Using optional chaining and default value
+            const name = company[ticker]?.securityName || 'Unknown';
 
             const row = document.createElement('tr');
             row.style.backgroundColor = percentChange > 0 ? '#d5f5e3' : '#fadbd8';
-
-            const logoImg = document.createElement('img');
-            logoImg.src = logo;
-            logoImg.alt = name;
-            logoImg.width = 20;
-            logoImg.style.marginRight = '10px';
 
             const tickerCell = document.createElement('td');
             tickerCell.textContent = ticker;
             row.appendChild(tickerCell);
 
             const nameCell = document.createElement('td');
+            const logoImg = document.createElement('img');
+            logoImg.src = logo;
+            logoImg.alt = name;
+            logoImg.width = 20;
+            logoImg.style.marginRight = '10px';
             nameCell.appendChild(logoImg);
             const compName = document.createElement('span');
             compName.textContent = name;
@@ -270,24 +277,26 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             row.appendChild(nameCell);
 
             const changeCell = document.createElement('td');
-            const changeSpan = document.createElement('span');
-            changeSpan.textContent = `${percentChange}%`;
             const arrow = document.createElement('span');
             arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
+            const changeSpan = document.createElement('span');
+            changeSpan.textContent = `${(percentChange * 100).toFixed(2)}%`;
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
             row.appendChild(changeCell);
 
             tableBody.appendChild(row);
-        }
+        });
+
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error('Error:', error);
     } finally {
         loadingMessage.style.display = 'none';
     }
 });
+</script>
 
-    </script>
+
 </body>
 </html>
