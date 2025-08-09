@@ -462,6 +462,6 @@
 
     { "Symbol": "USO", "Security Name": "United States Oil Fund LP" },
 
-    { "Symbol": "VRTX", "Security Name": "Vertex Pharmaceuticals Inc" }
-
+    { "Symbol": "VRTX", "Security Name": "Vertex Pharmaceuticals Inc" },
+  { "Symbol": "VNQ", "Security Name": "Vanguard Real Estate Index Fund ETF" }
 ]

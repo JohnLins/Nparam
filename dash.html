@@ -123,7 +123,7 @@ cursor: pointer;
             margin-top: 50px;
             width: 90%;
             overflow-x: auto;
-            padding-bottom: 150px;
+            padding-bottom: 200px;
         }
 
         #note {
@@ -222,8 +222,7 @@ cursor: pointer;
     </div>
 
 
-
- <script>
+<script>
 document.getElementById('submit-button').addEventListener('click', async () => {
     const prompt = document.getElementById('prompt-input').value;
     const loadingMessage = document.getElementById('loading-message');
@@ -252,21 +251,39 @@ document.getElementById('submit-button').addEventListener('click', async () => {
         });
         if (!response.ok) throw new Error('Prediction API request failed');
 
-        // This is already JSON {ticker: percent}
         const preds = await response.json();
 
-        // Loop over predictions
-        Object.entries(preds).forEach(([ticker, percentChange]) => {
+        // 1️⃣ Compute sum of positive percentage changes
+        const positiveSum = Object.values(preds)
+            .filter(v => v > 0)
+            .reduce((sum, v) => sum + v, 0);
+
+        // 2️⃣ Convert to array & sort by magnitude
+        const sortedPreds = Object.entries(preds).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+
+        // 3️⃣ Add header for "Weight"
+        const headerRow = document.querySelector('#stock-table thead tr');
+        if (!document.getElementById('weight-header')) {
+            const weightHeader = document.createElement('th');
+            weightHeader.id = 'weight-header';
+            weightHeader.textContent = 'Weight';
+            headerRow.appendChild(weightHeader);
+        }
+
+        // 4️⃣ Render table rows
+        sortedPreds.forEach(([ticker, percentChange]) => {
             const logo = 'icons/' + ticker + '.png';
             const name = company[ticker]?.securityName || 'Unknown';
 
             const row = document.createElement('tr');
             row.style.backgroundColor = percentChange > 0 ? '#0f872b' : '#870f0f';
 
+            // Ticker
             const tickerCell = document.createElement('td');
             tickerCell.textContent = ticker;
             row.appendChild(tickerCell);
 
+            // Company name + logo
             const nameCell = document.createElement('td');
             const logoImg = document.createElement('img');
             logoImg.src = logo;
@@ -279,15 +296,22 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             nameCell.appendChild(compName);
             row.appendChild(nameCell);
 
+            // Percent change
             const changeCell = document.createElement('td');
             const arrow = document.createElement('span');
             arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
-            changeSpan.textContent = `${(percentChange).toFixed(5)}%`;
+            changeSpan.textContent = `${percentChange.toFixed(5)}%`;
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
             row.appendChild(changeCell);
+
+            // Weight
+            const weightCell = document.createElement('td');
+            let weight = percentChange > 0 && positiveSum > 0 ? percentChange / positiveSum : 0;
+            weightCell.textContent = weight.toFixed(5);
+            row.appendChild(weightCell);
 
             tableBody.appendChild(row);
         });
@@ -299,6 +323,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
     }
 });
 </script>
+
 
 
 </body>
