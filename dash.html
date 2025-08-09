@@ -117,9 +117,8 @@ cursor: pointer;
 
 
        /* Make first two columns have gray background */
-            #stock-table td:nth-child(1),
-            #stock-table td:nth-child(2) {
-                background-color: #36393e; /* dark gray to match your theme */
+            #stock-table td:nth-child(1){
+                font-weight: bold;
             }
 
 
@@ -167,8 +166,7 @@ cursor: pointer;
             color: #36393e;
         }
         .up-arrow {
-            /*color: #90EE90;*/
-            color: green;
+            color: #90EE90;
         }
         .down-arrow {
             color: red;
@@ -311,7 +309,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
             changeSpan.textContent = `${percentChange.toFixed(5)}%`;
-            changeSpan.style.color = percentChange > 0 ? 'green' : 'red';
+            changeSpan.style.color = percentChange > 0 ? '#90EE90' : 'red';
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
             row.appendChild(changeCell);
