@@ -183,7 +183,7 @@ cursor: pointer;
 
 
     <div id="table-section">
-    <img src="nparam.png" style="float: left;height: 30px;margin: 5px 0px 5px 0px"/> <span style="margin: 5px; color: gray"><span style="color:lightcoral">Nparam Bull</span> V0.7 360M+</span>
+    <img src="nparam.png" style="float: left;height: 30px;margin: 5px 0px 5px 0px"/> <span style="margin: 5px; color: gray"><span style="color:lightcoral">Nparam Bull</span> V1 360M+</span>
 
 
         <table id="stock-table">
@@ -282,7 +282,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
-            changeSpan.textContent = `${(percentChange * 100).toFixed(2)}%`;
+            changeSpan.textContent = `${(percentChange).toFixed(5)}%`;
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
             row.appendChild(changeCell);
