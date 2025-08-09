@@ -463,5 +463,8 @@
     { "Symbol": "USO", "Security Name": "United States Oil Fund LP" },
 
     { "Symbol": "VRTX", "Security Name": "Vertex Pharmaceuticals Inc" },
-  { "Symbol": "VNQ", "Security Name": "Vanguard Real Estate Index Fund ETF" }
+  { "Symbol": "VNQ", "Security Name": "Vanguard Real Estate Index Fund ETF" },
+    { "Symbol": "GME", "Security Name": "GameStop Corp" },
+     { "Symbol": "GLD", "Security Name": "SPDR Gold Trust" },
+       { "Symbol": "EXC", "Security Name": "Exelon Corp" }
 ]
