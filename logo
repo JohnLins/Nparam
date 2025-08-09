@@ -233,7 +233,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
     try {
         // Load company names
-        const companyResponse = await fetch('https://nparam.com/company.json');
+        const companyResponse = await fetch('company.json');
         if (!companyResponse.ok) throw new Error('Failed to load company data');
         const companyData = await companyResponse.json();
         const company = {};
