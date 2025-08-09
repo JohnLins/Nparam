@@ -458,7 +458,7 @@
     { "Symbol": "HDGE", "Security Name": "AdvisorShares Ranger Equity Bear ETF" },
     { "Symbol": "PSQ", "Security Name": "ProShares Short QQQ" },
     { "Symbol": "RWM", "Security Name": "ProShares Short Russell2000" },
-    { "Symbol": "TBT", "Security Name": "ProShares UltraShort 20+ Year Treasury" }
+    { "Symbol": "TBT", "Security Name": "ProShares UltraShort 20+ Year Treasury" },
 
     { "Symbol": "USO", "Security Name": "United States Oil Fund LP" },
 
