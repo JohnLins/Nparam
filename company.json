@@ -452,4 +452,14 @@
   { "Symbol": "XEL", "Security Name": "Xcel Energy Inc." },
   { "Symbol": "ZS", "Security Name": "Zscaler, Inc." }
 
+
+    { "Symbol": "BND", "Security Name": "Vanguard Total Bond Market ETF" },
+    { "Symbol": "DXD", "Security Name": "ProShares UltraShort Dow30" },
+    { "Symbol": "FXP", "Security Name": "ProShares UltraShort FTSE China 50" },
+    { "Symbol": "HDGE", "Security Name": "AdvisorShares Ranger Equity Bear ETF" },
+    { "Symbol": "PSQ", "Security Name": "ProShares Short QQQ" },
+    { "Symbol": "RWM", "Security Name": "ProShares Short Russell2000" }
+
+
+
 ]
