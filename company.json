@@ -450,8 +450,7 @@
   { "Symbol": "VTI", "Security Name": "Vanguard Total Stock Market ETF" },
   { "Symbol": "WDAY", "Security Name": "Workday, Inc." },
   { "Symbol": "XEL", "Security Name": "Xcel Energy Inc." },
-  { "Symbol": "ZS", "Security Name": "Zscaler, Inc." }
-
+  { "Symbol": "ZS", "Security Name": "Zscaler, Inc." },
 
     { "Symbol": "BND", "Security Name": "Vanguard Total Bond Market ETF" },
     { "Symbol": "DXD", "Security Name": "ProShares UltraShort Dow30" },
