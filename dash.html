@@ -311,7 +311,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
 
             const arrow = document.createElement('span');
-            arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
+            //arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
             changeSpan.textContent = `${percentChange.toFixed(5)}%`;
