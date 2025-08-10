@@ -168,11 +168,11 @@ color: white;
             background-color: lightcoral;
             color: #36393e;
         }
-        .up-arrow {
-            color: green;
+        .up {
+            color: #0f872b;
         }
-        .down-arrow {
-            color: red;
+        .down {
+            color: #870f0f;
         }
 
         #loading-message {
@@ -291,7 +291,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             const tickerCell = document.createElement('td');
             tickerCell.textContent = ticker;
             row.appendChild(tickerCell);
-            row.style.color = percentChange > 0 ? '#90EE90' : '#fc3030';
+            row.style.backgroundColor = percentChange > 0 ? '#4a5a52 ' : '#554d52';
 
             // Company name + logo
             const nameCell = document.createElement('td');
@@ -311,10 +311,11 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
 
             const arrow = document.createElement('span');
-            //arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
+            arrow.className = percentChange > 0 ? 'up' : 'down';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
             changeSpan.textContent = `${percentChange.toFixed(5)}%`;
+            changeSpan.className = percentChange > 0 ? 'up' : 'down';
 
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
