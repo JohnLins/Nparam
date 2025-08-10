@@ -24,14 +24,13 @@
 
 #apibtn {
 
-color:lightcoral; height: 30px; border:1px solid lightcoral; padding: 5px 5% 2px 5%;font-weight:bold; margin-top: 55px;
+color:lightcoral; height: 30px; padding: 5px 5% 2px 5%;font-weight:bold; margin-top: 25px;text-decoration:underline;
 
 }
 
 #apibtn:hover {
-background-color: lightcoral;
-color:#36393e;
 cursor: pointer;
+color: white;
 }
 
 
@@ -172,7 +171,7 @@ cursor: pointer;
             color: #90EE90;
         }
         .down-arrow {
-            color: red;
+            color: #ee9090;
         }
 
         #loading-message {
@@ -224,7 +223,7 @@ cursor: pointer;
 
         </div>
 <br/><br/><br/>
-            <div id="apibtn">API Dashboard ➡</div>
+            <a id="apibtn">API Dashboard ↗</a>
 
     </div>
 
@@ -312,7 +311,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
             changeSpan.textContent = `${percentChange.toFixed(5)}%`;
-            changeSpan.style.color = percentChange > 0 ? '#90EE90' : 'red';
+            changeCell.style.color = percentChange > 0 ? '#90EE90' : '#ee9090';
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
             row.appendChild(changeCell);
