@@ -1,249 +1,347 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nparam Bull — Clean Sharp UI</title>
-  <link rel="icon" type="image/x-icon" href="https://nparam.com/nparam.png">
-  <style>
-    /* ---------- THEME (no rounded corners anywhere) ---------- */
-    :root{
-      --bg: #2f3336;            /* page background */
-      --panel: #36393e;         /* card / table background */
-      --muted: #4a4d52;         /* secondary background */
-      --accent: #f08b88;        /* coral accent for headers & CTA */
-      --text: #e6e6e6;          /* main text */
-      --subtext: #aeb3b6;       /* subdued text */
-      --pos: #00c853;           /* vivid green (good contrast) */
-      --neg: #ff1744;           /* vivid red */
-      --row-border: #2a2d30;    /* separators */
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nparam Bull</title>
+    <link rel="icon" type="image/x-icon" href="https://nparam.com/nparam.png" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 
-    /* Reset & base */
-    *{box-sizing: border-box; border-radius:0;}
-    html,body{height:100%;}
-    body{
-      margin:0; padding:0; font-family: 'Poppins', system-ui, Arial; background:var(--bg); color:var(--text);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      display:flex; flex-direction:column; align-items:center;
-    }
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+            background-color: #36393e;
+        }
 
-    /* Top bar / brand */
-    .header{
-      width:92%; max-width:1280px; padding:12px 16px; display:flex; align-items:center; gap:12px; margin-top:18px;
-      background:transparent; color:var(--subtext);
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px; font-weight:600; color:var(--accent);
-    }
-    .brand img{height:28px; display:block}
-    .subtitle{color:var(--subtext); font-size:13px}
+        #apibtn {
+            color: lightcoral;
+            height: 30px;
+            padding: 5px 5% 2px 5%;
+            font-weight: bold;
+            margin-top: 25px;
+            text-decoration: underline;
+        }
 
-    /* Table container */
-    .table-wrap{
-      width:92%; max-width:1280px; margin:18px 0 120px 0; background:var(--panel); border:1px solid var(--row-border); overflow:hidden;
-    }
+        #apibtn:hover {
+            cursor: pointer;
+            color: white;
+        }
 
-    /* Legend and controls */
-    .controls{display:flex; justify-content:space-between; align-items:center; padding:12px 16px; gap:12px}
-    .legend{display:flex; gap:12px; align-items:center}
-    .legend .item{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--subtext)}
-    .swatch{width:14px; height:14px; display:inline-block}
-    .swatch.pos{background:var(--pos)}
-    .swatch.neg{background:var(--neg)}
+        #input-row {
+            display: flex;
+            flex-direction: row;
+            width: 90%;
+            align-items: stretch;
+            justify-content: space-between;
+        }
 
-    /* table & header: sharp corners only on outer box, but table cells kept sharp by default */
-    table{width:100%; border-collapse:collapse; table-layout:fixed}
-    thead th{
-      background:var(--accent); color: #2b2b2b; font-weight:700; text-align:left; padding:12px 10px; border-bottom:1px solid var(--row-border);
-      font-size:14px;
-    }
+        #prompt-input {
+            width: 83%;
+            font-size: 18px;
+            border: 1px solid lightcoral;
+            background-color: #4a4d52;
+            color: white;
+            padding: 10px;
+            resize: none;
+            box-sizing: border-box;
+        }
 
-    tbody tr{height:56px; border-top:1px solid var(--row-border);}
+        .spacer {
+            width: 1%;
+        }
 
-    td{padding:8px 10px; vertical-align:middle; color:var(--text); border-left:0; border-right:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+        #submit-button {
+            width: 16%;
+            font-size: 20px;
+            background-color: lightcoral;
+            color: #36393e;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
 
-    /* Ticker column narrower */
-    td.ticker{width:10%; font-weight:700; color:var(--text)}
-    td.name{width:50%; display:flex; align-items:center; gap:12px}
-    td.pred{width:22%; text-align:left}
-    td.weight{width:8%; text-align:right; padding-right:18px}
+        #submit-button:hover {
+            background-color: #4a4d52;
+        }
 
-    /* small logo */
-    .logo{width:20px; height:20px; display:inline-block}
+        @media (max-width: 600px) {
+            #input-row {
+                flex-direction: column;
+                align-items: center;
+            }
 
-    /* trend indicator square placed next to company name (easy to glance) */
-    .trend-badge{width:14px; height:14px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; color:#fff; font-weight:700}
-    .trend-badge.pos{background:var(--pos);}
-    .trend-badge.neg{background:var(--neg);}
+            .spacer {
+                display: none;
+            }
 
-    /* colors for percent text */
-    .percent{font-weight:700}
-    .percent.pos{color:var(--pos)}
-    .percent.neg{color:var(--neg)}
+            #prompt-input,
+            #submit-button {
+                width: 95%;
+                height: auto;
+                margin-bottom: 10px;
+            }
+        }
 
-    /* row hover */
-    tbody tr:hover{background:linear-gradient(0deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02))}
+        #input-section {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 0;
+            background-color: #36393e;
+        }
+        h1 {
+            font-family: "Playfair Display SC", serif;
+        }
 
-    /* sticky header when scrolling table-body */
-    .table-scroll{max-height:560px; overflow:auto}
-    .table-scroll thead th{position:sticky; top:0; z-index:2}
+        nav {
+            margin-top: 20px;
+        }
 
-    /* input area fixed bottom, sharp edges */
-    #input-section{position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:center; padding:18px 0; background:linear-gradient(180deg, rgba(0,0,0,0.04), transparent);}
-    #input-row{width:92%; max-width:1280px; display:flex; gap:12px}
-    #prompt-input{flex:1; min-height:54px; padding:12px; background:var(--muted); color:var(--text); border:1px solid var(--row-border); font-size:16px}
-    #submit-button{width:160px; background:var(--accent); color:#2b2b2b; border:1px solid #b86d6b; font-weight:700; cursor:pointer}
-    #submit-button:active{transform:translateY(1px)}
-    #apibtn{align-self:center; margin-left:14px; color:var(--accent); text-decoration:underline; font-weight:600}
+        /* Make first two columns have gray background */
+        #stock-table td:nth-child(1) {
+            font-weight: bold;
+        }
 
-    /* loading */
-    #loading-message{display:none; margin:10px 0; color:var(--accent); font-weight:700}
+        #stock-table td {
+            color: white;
+        }
 
-    /* responsive tweaks */
-    @media (max-width:800px){
-      td.name{width:46%}
-      td.pred{width:30%}
-      td.ticker{width:16%}
-      #submit-button{width:120px}
-    }
-    @media (max-width:480px){
-      .controls{flex-direction:column; gap:8px; align-items:flex-start}
-      td.weight{display:none}
-      #prompt-input{font-size:14px}
-      .table-wrap{margin-bottom:220px}
-    }
-  </style>
+        #table-section {
+            margin-top: 50px;
+            width: 90%;
+            overflow-x: auto;
+            padding-bottom: 240px;
+        }
+
+        #note {
+            margin: 110px;
+            font-size: 30px;
+            color: #4a4d52;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #table-section {
+                margin-top: 5px;
+            }
+
+            #note {
+                margin: 10px;
+                font-size: 10px;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            border: 1px solid #36393e;
+            border-left: 0px;
+            padding: 3px;
+            padding-left: 6px;
+            text-align: left;
+            font-weight: 450;
+        }
+        th {
+            background-color: lightcoral;
+            color: #36393e;
+        }
+        .up {
+            color: #90ee90;
+            text-shadow: 0px 0px 5px black;
+        }
+        .down {
+            color: #ff4246;
+            text-shadow: 0px 0px 5px black;
+        }
+
+        #loading-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 30px;
+            color: lightcoral;
+        }
+    </style>
 </head>
 <body>
+    <br /><br />
 
-  <div class="header">
-    <div class="brand">
-      <img src="nparam.png" alt="logo">
-      <div>
-        <div style="font-size:16px">Nparam Bull <span style="color:var(--subtext); font-weight:500">V1 360M+</span></div>
-        <div class="subtitle">AI daily % change predictions — quick glance friendly</div>
-      </div>
+    <div id="table-section">
+        <img src="nparam.png" style="float: left; height: 30px; margin: 5px 0px 5px 0px" />
+        <span style="margin: 5px; color: gray"
+            ><span style="color: lightcoral">Nparam Bull</span> V1 360M+</span
+        >
+
+        <table id="stock-table">
+            <thead>
+                <tr>
+                    <th>Ticker Symbol</th>
+                    <th>Company Name</th>
+                    <th>% Change (AI Prediction)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div id="note">
+            Only information that is not priced into the market can be expected to yield profitable trades—Nparam is
+            <i>not</i> responsable for any loss nor entitled to any gain from investment decisions based on the AI-predicted daily %
+            change value—by using this software, you agree to these terms.
+        </div>
     </div>
-  </div>
-
-  <div class="table-wrap" role="region" aria-label="Predicted stock table">
-
-    <div class="controls">
-      <div class="legend">
-        <div class="item"><span class="swatch pos"></span> Up</div>
-        <div class="item"><span class="swatch neg"></span> Down</div>
-      </div>
-      <div style="color:var(--subtext); font-size:13px">Only information that is not priced in the market can be expected to yield profitable trades — Nparam is not responsible for any loss.</div>
+    <div id="loading-message">Generating...</div>
+    <div id="input-section">
+        <div id="input-row">
+            <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
+            <div class="spacer"></div>
+            <button id="submit-button">Predict ✦</button>
+        </div>
+        <br /><br /><br />
+        <a id="apibtn">API Dashboard ↗</a>
     </div>
 
-    <div class="table-scroll">
-      <table id="stock-table">
-        <thead>
-          <tr>
-            <th style="width:10%">Ticker</th>
-            <th style="width:50%">Company</th>
-            <th style="width:22%">% Change (AI Prediction)</th>
-            <th style="width:8%; text-align:right; padding-right:18px">Weight</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+    <script>
+        document.getElementById("submit-button").addEventListener("click", async () => {
+            const prompt = document.getElementById("prompt-input").value;
+            const loadingMessage = document.getElementById("loading-message");
+            const tableBody = document.querySelector("#stock-table tbody");
+            const note = document.getElementById("note");
 
-  </div>
+            note.style.display = "none";
+            loadingMessage.style.display = "block";
+            tableBody.innerHTML = "";
 
-  <div id="loading-message">Generating...</div>
+            try {
+                // Load company names
+                const companyResponse = await fetch("company.json");
+                if (!companyResponse.ok) throw new Error("Failed to load company data");
+                const companyData = await companyResponse.json();
+                const company = {};
+                companyData.forEach((c) => {
+                    company[c.Symbol] = { securityName: c["Security Name"] };
+                });
 
-  <div id="input-section">
-    <div id="input-row">
-      <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
-      <button id="submit-button">Predict ✦</button>
-      <a id="apibtn">API Dashboard ↗</a>
-    </div>
-  </div>
+                // Call local Flask API with POST JSON body
+                const response = await fetch("http://localhost:5000/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ insight: prompt }),
+                });
+                if (!response.ok) throw new Error("Prediction API request failed");
 
-  <script>
-  // Helper: clamp color for very small rounding errors
-  function formatPercent(n){
-    const sign = n>0 ? '+' : '';
-    return sign + n.toFixed(5) + '%';
-  }
+                const preds = await response.json();
 
-  document.getElementById('submit-button').addEventListener('click', async () => {
-    const prompt = document.getElementById('prompt-input').value.trim();
-    const loadingMessage = document.getElementById('loading-message');
-    const tableBody = document.querySelector('#stock-table tbody');
+                // 1️⃣ Compute sum of positive percentage changes
+                const positiveSum = Object.values(preds).filter((v) => v > 0).reduce((sum, v) => sum + v, 0);
 
-    tableBody.innerHTML = '';
-    loadingMessage.style.display = 'block';
+                // Get max positive and max negative magnitudes for shading
+                const maxPositive = Math.max(...Object.values(preds).filter((v) => v > 0), 0);
+                const maxNegative = Math.min(...Object.values(preds).filter((v) => v < 0), 0); // negative minimum
 
-    try{
-      const [companyResp, apiResp] = await Promise.all([
-        fetch('company.json'),
-        fetch('http://localhost:5000/predict', {
-          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({insight:prompt})
-        })
-      ]);
-      if(!companyResp.ok) throw new Error('company.json load failed');
-      if(!apiResp.ok) throw new Error('prediction API failed');
+                // 2️⃣ Convert to array & sort by magnitude
+                const sortedPreds = Object.entries(preds).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
 
-      const companyData = await companyResp.json();
-      const preds = await apiResp.json();
+                // 3️⃣ Add header for "Weight"
+                const headerRow = document.querySelector("#stock-table thead tr");
+                if (!document.getElementById("weight-header")) {
+                    const weightHeader = document.createElement("th");
+                    weightHeader.id = "weight-header";
+                    weightHeader.textContent = "Weight";
+                    headerRow.appendChild(weightHeader);
+                }
 
-      const company = {};
-      companyData.forEach(c => company[c.Symbol] = { securityName: c['Security Name'] });
+                // Helper function to get background color based on relative magnitude
+                function getShade(percentChange) {
+                    const maxIntensity = 0.8; // max opacity for shading
+                    if (percentChange > 0 && maxPositive > 0) {
+                        // Calculate relative intensity from 0 to maxIntensity
+                        let intensity = (percentChange / maxPositive) * maxIntensity;
+                        intensity = Math.min(intensity, maxIntensity);
+                        // Greenish with opacity scaled
+                        // Use rgba(15, 135, 43, intensity) similar to your old color #0f872b
+                        return `rgba(15, 135, 43, ${intensity.toFixed(2)})`;
+                    } else if (percentChange < 0 && maxNegative < 0) {
+                        // relative intensity based on negative values (-maxNegative is positive)
+                        let intensity = (percentChange / maxNegative) * maxIntensity; // both negative so ratio positive
+                        intensity = Math.min(intensity, maxIntensity);
+                        // Reddish with opacity scaled
+                        // rgba(135, 15, 15, intensity) ~ #870f0f
+                        return `rgba(135, 15, 15, ${intensity.toFixed(2)})`;
+                    } else {
+                        return "transparent";
+                    }
+                }
 
-      // compute positive sum and sort by absolute magnitude
-      const positiveSum = Object.values(preds).filter(v=>v>0).reduce((s,v)=>s+v,0);
-      const sorted = Object.entries(preds).sort((a,b)=> Math.abs(b[1]) - Math.abs(a[1]));
+                // 4️⃣ Render table rows
+                sortedPreds.forEach(([ticker, percentChange]) => {
+                    const logo = "icons/" + ticker + ".png";
+                    const name = company[ticker]?.securityName || "Unknown";
 
-      // render rows
-      for(const [ticker, pct] of sorted){
-        const name = company[ticker]?.securityName || 'Unknown';
-        const positive = pct > 0;
+                    const row = document.createElement("tr");
 
-        const tr = document.createElement('tr');
+                    // Set dynamic background color based on relative magnitude
+                    row.style.backgroundColor = getShade(percentChange);
 
-        // Ticker
-        const tdTicker = document.createElement('td'); tdTicker.className='ticker'; tdTicker.textContent = ticker; tr.appendChild(tdTicker);
+                    // Ticker
+                    const tickerCell = document.createElement("td");
+                    tickerCell.textContent = ticker;
+                    row.appendChild(tickerCell);
 
-        // Name + logo + trend badge
-        const tdName = document.createElement('td'); tdName.className='name';
-        const logo = document.createElement('img'); logo.className='logo'; logo.src = 'icons/' + ticker + '.png'; logo.alt = ticker + ' logo';
-        logo.onerror = ()=>{ logo.style.display='none'};
-        const badge = document.createElement('span'); badge.className = 'trend-badge ' + (positive? 'pos': 'neg'); badge.textContent = positive ? '▲' : '▼';
-        const spanName = document.createElement('span'); spanName.textContent = name;
-        tdName.appendChild(logo);
-        tdName.appendChild(badge);
-        tdName.appendChild(spanName);
-        tr.appendChild(tdName);
+                    // Company name + logo
+                    const nameCell = document.createElement("td");
+                    const logoImg = document.createElement("img");
+                    logoImg.src = logo;
+                    logoImg.alt = name;
+                    logoImg.width = 20;
+                    logoImg.style.marginRight = "10px";
+                    nameCell.appendChild(logoImg);
+                    const compName = document.createElement("span");
+                    compName.textContent = name;
+                    nameCell.appendChild(compName);
+                    row.appendChild(nameCell);
 
-        // Percent change (close to name visually)
-        const tdPred = document.createElement('td'); tdPred.className='pred';
-        const p = document.createElement('span'); p.className = 'percent ' + (positive? 'pos':'neg'); p.textContent = formatPercent(pct);
-        tdPred.appendChild(p);
-        tr.appendChild(tdPred);
+                    // Percent change with "+" sign for positive
+                    const changeCell = document.createElement("td");
 
-        // Weight
-        const tdWeight = document.createElement('td'); tdWeight.className='weight';
-        const weight = (positive && positiveSum>0) ? pct / positiveSum : 0;
-        tdWeight.textContent = weight.toFixed(5);
-        tr.appendChild(tdWeight);
+                    const arrow = document.createElement("span");
+                    arrow.className = percentChange > 0 ? "up" : "down";
+                    arrow.textContent = percentChange > 0 ? "▲ " : "▼ ";
+                    const changeSpan = document.createElement("span");
 
-        tableBody.appendChild(tr);
-      }
+                    // Add "+" for positive changes
+                    changeSpan.textContent = (percentChange > 0 ? "+" : "") + `${percentChange.toFixed(5)}%`;
+                    changeSpan.className = percentChange > 0 ? "up" : "down";
 
-    }catch(err){
-      console.error(err);
-      const tableBody = document.querySelector('#stock-table tbody');
-      const row = document.createElement('tr');
-      const cell = document.createElement('td'); cell.colSpan=4; cell.style.color='var(--subtext)'; cell.textContent = 'Error loading predictions. See console.';
-      row.appendChild(cell); tableBody.appendChild(row);
-    }finally{
-      loadingMessage.style.display = 'none';
-    }
-  });
-  </script>
+                    changeCell.appendChild(arrow);
+                    changeCell.appendChild(changeSpan);
+                    row.appendChild(changeCell);
+
+                    // Weight
+                    const weightCell = document.createElement("td");
+                    let weight = percentChange > 0 && positiveSum > 0 ? percentChange / positiveSum : 0;
+                    weightCell.textContent = weight.toFixed(5);
+                    row.appendChild(weightCell);
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error:", error);
+            } finally {
+                loadingMessage.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
