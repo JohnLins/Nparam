@@ -169,10 +169,10 @@ color: white;
             color: #36393e;
         }
         .up-arrow {
-            color: #90EE90;
+            color: green;
         }
         .down-arrow {
-            color: #ee9090;
+            color: red;
         }
 
         #loading-message {
@@ -291,6 +291,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             const tickerCell = document.createElement('td');
             tickerCell.textContent = ticker;
             row.appendChild(tickerCell);
+            row.style.color = percentChange > 0 ? '#90EE90' : '#fc3030';
 
             // Company name + logo
             const nameCell = document.createElement('td');
@@ -308,7 +309,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             // Percent change
             const changeCell = document.createElement('td');
 
-            changeCell.style.color = percentChange > 0 ? '#90EE90' : '#fc3030';
+
             const arrow = document.createElement('span');
             arrow.className = percentChange > 0 ? 'up-arrow' : 'down-arrow';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
