@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nparam Bull</title>
+    <link rel="icon" type="image/x-icon" href="https://nparam.com/nparam.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #2f3136, #1f2023);
+            color: #fff;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 15px 5%;
+            background: linear-gradient(90deg, #ff6b6b, #ff9999);
+            color: #1f1f1f;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+        .header img {
+            height: 32px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-family: "Playfair Display SC", serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .header-sub {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* Table */
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            background-color: #2f3136;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+        }
+        thead th {
+            background-color: #e07c7c;
+            color: #1f1f1f;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 13px;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #3a3d42;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #34363b;
+        }
+        tbody tr:hover {
+            background-color: #484b50;
+            cursor: pointer;
+        }
+        td:nth-child(3), td:nth-child(4) {
+            text-align: right;
+        }
+        td img {
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* Change Colors */
+        .change-positive {
+            color: #8ef08e;
+        }
+        .change-negative {
+            color: #ff6b6b;
+        }
+
+        /* Input Section */
+        #input-section {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background-color: #2a2c30;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+        #input-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        #prompt-input {
+            flex: 1;
+            min-width: 200px;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #3a3d42;
+            color: white;
+            border: 1px solid lightcoral;
+            border-radius: 8px;
+            resize: none;
+            transition: box-shadow 0.3s;
+        }
+        #prompt-input:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(240,128,128,0.5);
+        }
+        #submit-button {
+            background: linear-gradient(135deg, #ff6b6b, #ff9999);
+            color: #1f1f1f;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #submit-button:hover {
+            background: linear-gradient(135deg, #ff7f7f, #ffc0c0);
+        }
+
+        /* Note */
+        #note {
+            margin: 20px auto;
+            width: 90%;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Loading */
+        #loading-message {
+            text-align: center;
+            font-size: 18px;
+            color: lightcoral;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <img src="https://nparam.com/nparam.png" alt="logo">
+        <div>
+            <div class="header-title">Nparam Bull</div>
+            <div class="header-sub">V1 360M+</div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <table id="stock-table">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Company Name</th>
+                <th>% Change (AI Prediction)</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- NOTE -->
+    <div id="note">
+        Only information that is not priced into the market can be expected to yield profitable trades — Nparam is <i>not</i> responsible for any loss nor entitled to any gain from investment decisions based on the AI-predicted daily % change value — by using this software, you agree to these terms.
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading-message">Generating...</div>
+
+    <!-- INPUT SECTION -->
+    <div id="input-section">
+        <div id="input-row">
+            <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
+            <button id="submit-button">Predict ✦</button>
+        </div>
+    </div>
+
+    <!-- JS Logic (keeps your original logic) -->
+    <script>
+        document.getElementById('submit-button').addEventListener('click', async () => {
+            const prompt = document.getElementById('prompt-input').value;
+            const loadingMessage = document.getElementById('loading-message');
+            const tableBody = document.querySelector('#stock-table tbody');
+            const note = document.getElementById('note');
+
+            note.style.display = "none";
+            loadingMessage.style.display = 'block';
+            tableBody.innerHTML = '';
+
+            try {
+                const companyResponse = await fetch('company.json');
+                if (!companyResponse.ok) throw new Error('Failed to load company data');
+                const companyData = await companyResponse.json();
+                const company = {};
+                companyData.forEach(c => {
+                    company[c.Symbol] = { securityName: c["Security Name"] };
+                });
+
+                const response = await fetch("http://localhost:5000/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ insight: prompt })
+                });
+                if (!response.ok) throw new Error('Prediction API request failed');
+
+                const preds = await response.json();
+                const positiveSum = Object.values(preds).filter(v => v > 0).reduce((sum, v) => sum + v, 0);
+                const sortedPreds = Object.entries(preds).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+
+                sortedPreds.forEach(([ticker, percentChange]) => {
+                    const logo = 'icons/' + ticker + '.png';
+                    const name = company[ticker]?.securityName || 'Unknown';
+
+                    const row = document.createElement('tr');
+
+                    // Ticker
+                    const tickerCell = document.createElement('td');
+                    tickerCell.textContent = ticker;
+                    row.appendChild(tickerCell);
+
+                    // Company name + logo
+                    const nameCell = document.createElement('td');
+                    const logoImg = document.createElement('img');
+                    logoImg.src = logo;
+                    logoImg.alt = name;
+                    logoImg.width = 24;
+                    nameCell.appendChild(logoImg);
+                    const compName = document.createElement('span');
+                    compName.textContent = name;
+                    nameCell.appendChild(compName);
+                    row.appendChild(nameCell);
+
+                    // Percent change
+                    const changeCell = document.createElement('td');
+                    changeCell.textContent = `${percentChange.toFixed(5)}%`;
+                    changeCell.className = percentChange > 0 ? 'change-positive' : 'change-negative';
+                    row.appendChild(changeCell);
+
+                    // Weight
+                    const weightCell = document.createElement('td');
+                    let weight = percentChange > 0 && positiveSum > 0 ? percentChange / positiveSum : 0;
+                    weightCell.textContent = weight.toFixed(5);
+                    row.appendChild(weightCell);
+
+                    tableBody.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                loadingMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
