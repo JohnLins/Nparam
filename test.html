@@ -1,277 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nparam Bull</title>
-    <link rel="icon" type="image/x-icon" href="https://nparam.com/nparam.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nparam Bull — Clean Sharp UI</title>
+  <link rel="icon" type="image/x-icon" href="https://nparam.com/nparam.png">
+  <style>
+    /* ---------- THEME (no rounded corners anywhere) ---------- */
+    :root{
+      --bg: #2f3336;            /* page background */
+      --panel: #36393e;         /* card / table background */
+      --muted: #4a4d52;         /* secondary background */
+      --accent: #f08b88;        /* coral accent for headers & CTA */
+      --text: #e6e6e6;          /* main text */
+      --subtext: #aeb3b6;       /* subdued text */
+      --pos: #00c853;           /* vivid green (good contrast) */
+      --neg: #ff1744;           /* vivid red */
+      --row-border: #2a2d30;    /* separators */
+    }
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+    /* Reset & base */
+    *{box-sizing: border-box; border-radius:0;}
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; font-family: 'Poppins', system-ui, Arial; background:var(--bg); color:var(--text);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      display:flex; flex-direction:column; align-items:center;
+    }
 
-    <style>
-        body {
-            font-family: "Poppins", sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(180deg, #2f3136, #1f2023);
-            color: #fff;
-        }
+    /* Top bar / brand */
+    .header{
+      width:92%; max-width:1280px; padding:12px 16px; display:flex; align-items:center; gap:12px; margin-top:18px;
+      background:transparent; color:var(--subtext);
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:600; color:var(--accent);
+    }
+    .brand img{height:28px; display:block}
+    .subtitle{color:var(--subtext); font-size:13px}
 
-        /* Header */
-        .header {
-            display: flex;
-            align-items: center;
-            padding: 15px 5%;
-            background: linear-gradient(90deg, #ff6b6b, #ff9999);
-            color: #1f1f1f;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-        }
-        .header img {
-            height: 32px;
-            margin-right: 10px;
-        }
-        .header-title {
-            font-family: "Playfair Display SC", serif;
-            font-size: 22px;
-            font-weight: 700;
-        }
-        .header-sub {
-            font-size: 14px;
-            opacity: 0.85;
-        }
+    /* Table container */
+    .table-wrap{
+      width:92%; max-width:1280px; margin:18px 0 120px 0; background:var(--panel); border:1px solid var(--row-border); overflow:hidden;
+    }
 
-        /* Table */
-        table {
-            width: 90%;
-            margin: 30px auto;
-            border-collapse: separate;
-            border-spacing: 0;
-            background-color: #2f3136;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        th, td {
-            padding: 12px 16px;
-            text-align: left;
-        }
-        thead th {
-            background-color: #e07c7c;
-            color: #1f1f1f;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 13px;
-        }
-        tbody tr:nth-child(odd) {
-            background-color: #3a3d42;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #34363b;
-        }
-        tbody tr:hover {
-            background-color: #484b50;
-            cursor: pointer;
-        }
-        td:nth-child(3), td:nth-child(4) {
-            text-align: right;
-        }
-        td img {
-            border-radius: 4px;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
+    /* Legend and controls */
+    .controls{display:flex; justify-content:space-between; align-items:center; padding:12px 16px; gap:12px}
+    .legend{display:flex; gap:12px; align-items:center}
+    .legend .item{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--subtext)}
+    .swatch{width:14px; height:14px; display:inline-block}
+    .swatch.pos{background:var(--pos)}
+    .swatch.neg{background:var(--neg)}
 
-        /* Change Colors */
-        .change-positive {
-            color: #8ef08e;
-        }
-        .change-negative {
-            color: #ff6b6b;
-        }
+    /* table & header: sharp corners only on outer box, but table cells kept sharp by default */
+    table{width:100%; border-collapse:collapse; table-layout:fixed}
+    thead th{
+      background:var(--accent); color: #2b2b2b; font-weight:700; text-align:left; padding:12px 10px; border-bottom:1px solid var(--row-border);
+      font-size:14px;
+    }
 
-        /* Input Section */
-        #input-section {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            padding: 20px 5%;
-            background-color: #2a2c30;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-        }
-        #input-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        #prompt-input {
-            flex: 1;
-            min-width: 200px;
-            font-size: 16px;
-            padding: 10px;
-            background-color: #3a3d42;
-            color: white;
-            border: 1px solid lightcoral;
-            border-radius: 8px;
-            resize: none;
-            transition: box-shadow 0.3s;
-        }
-        #prompt-input:focus {
-            outline: none;
-            box-shadow: 0 0 8px rgba(240,128,128,0.5);
-        }
-        #submit-button {
-            background: linear-gradient(135deg, #ff6b6b, #ff9999);
-            color: #1f1f1f;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        #submit-button:hover {
-            background: linear-gradient(135deg, #ff7f7f, #ffc0c0);
-        }
+    tbody tr{height:56px; border-top:1px solid var(--row-border);}
 
-        /* Note */
-        #note {
-            margin: 20px auto;
-            width: 90%;
-            font-size: 14px;
-            color: #aaa;
-            text-align: center;
-            line-height: 1.5;
-        }
+    td{padding:8px 10px; vertical-align:middle; color:var(--text); border-left:0; border-right:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 
-        /* Loading */
-        #loading-message {
-            text-align: center;
-            font-size: 18px;
-            color: lightcoral;
-            margin-top: 20px;
-            display: none;
-        }
-    </style>
+    /* Ticker column narrower */
+    td.ticker{width:10%; font-weight:700; color:var(--text)}
+    td.name{width:50%; display:flex; align-items:center; gap:12px}
+    td.pred{width:22%; text-align:left}
+    td.weight{width:8%; text-align:right; padding-right:18px}
+
+    /* small logo */
+    .logo{width:20px; height:20px; display:inline-block}
+
+    /* trend indicator square placed next to company name (easy to glance) */
+    .trend-badge{width:14px; height:14px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; color:#fff; font-weight:700}
+    .trend-badge.pos{background:var(--pos);}
+    .trend-badge.neg{background:var(--neg);}
+
+    /* colors for percent text */
+    .percent{font-weight:700}
+    .percent.pos{color:var(--pos)}
+    .percent.neg{color:var(--neg)}
+
+    /* row hover */
+    tbody tr:hover{background:linear-gradient(0deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02))}
+
+    /* sticky header when scrolling table-body */
+    .table-scroll{max-height:560px; overflow:auto}
+    .table-scroll thead th{position:sticky; top:0; z-index:2}
+
+    /* input area fixed bottom, sharp edges */
+    #input-section{position:fixed; bottom:0; left:0; right:0; display:flex; justify-content:center; padding:18px 0; background:linear-gradient(180deg, rgba(0,0,0,0.04), transparent);}
+    #input-row{width:92%; max-width:1280px; display:flex; gap:12px}
+    #prompt-input{flex:1; min-height:54px; padding:12px; background:var(--muted); color:var(--text); border:1px solid var(--row-border); font-size:16px}
+    #submit-button{width:160px; background:var(--accent); color:#2b2b2b; border:1px solid #b86d6b; font-weight:700; cursor:pointer}
+    #submit-button:active{transform:translateY(1px)}
+    #apibtn{align-self:center; margin-left:14px; color:var(--accent); text-decoration:underline; font-weight:600}
+
+    /* loading */
+    #loading-message{display:none; margin:10px 0; color:var(--accent); font-weight:700}
+
+    /* responsive tweaks */
+    @media (max-width:800px){
+      td.name{width:46%}
+      td.pred{width:30%}
+      td.ticker{width:16%}
+      #submit-button{width:120px}
+    }
+    @media (max-width:480px){
+      .controls{flex-direction:column; gap:8px; align-items:flex-start}
+      td.weight{display:none}
+      #prompt-input{font-size:14px}
+      .table-wrap{margin-bottom:220px}
+    }
+  </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <div class="header">
-        <img src="https://nparam.com/nparam.png" alt="logo">
-        <div>
-            <div class="header-title">Nparam Bull</div>
-            <div class="header-sub">V1 360M+</div>
-        </div>
+  <div class="header">
+    <div class="brand">
+      <img src="nparam.png" alt="logo">
+      <div>
+        <div style="font-size:16px">Nparam Bull <span style="color:var(--subtext); font-weight:500">V1 360M+</span></div>
+        <div class="subtitle">AI daily % change predictions — quick glance friendly</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap" role="region" aria-label="Predicted stock table">
+
+    <div class="controls">
+      <div class="legend">
+        <div class="item"><span class="swatch pos"></span> Up</div>
+        <div class="item"><span class="swatch neg"></span> Down</div>
+      </div>
+      <div style="color:var(--subtext); font-size:13px">Only information that is not priced in the market can be expected to yield profitable trades — Nparam is not responsible for any loss.</div>
     </div>
 
-    <!-- TABLE -->
-    <table id="stock-table">
+    <div class="table-scroll">
+      <table id="stock-table">
         <thead>
-            <tr>
-                <th>Ticker</th>
-                <th>Company Name</th>
-                <th>% Change (AI Prediction)</th>
-                <th>Weight</th>
-            </tr>
+          <tr>
+            <th style="width:10%">Ticker</th>
+            <th style="width:50%">Company</th>
+            <th style="width:22%">% Change (AI Prediction)</th>
+            <th style="width:8%; text-align:right; padding-right:18px">Weight</th>
+          </tr>
         </thead>
         <tbody></tbody>
-    </table>
-
-    <!-- NOTE -->
-    <div id="note">
-        Only information that is not priced into the market can be expected to yield profitable trades — Nparam is <i>not</i> responsible for any loss nor entitled to any gain from investment decisions based on the AI-predicted daily % change value — by using this software, you agree to these terms.
+      </table>
     </div>
 
-    <!-- LOADING -->
-    <div id="loading-message">Generating...</div>
+  </div>
 
-    <!-- INPUT SECTION -->
-    <div id="input-section">
-        <div id="input-row">
-            <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
-            <button id="submit-button">Predict ✦</button>
-        </div>
+  <div id="loading-message">Generating...</div>
+
+  <div id="input-section">
+    <div id="input-row">
+      <textarea id="prompt-input" placeholder="Enter your prompt here"></textarea>
+      <button id="submit-button">Predict ✦</button>
+      <a id="apibtn">API Dashboard ↗</a>
     </div>
+  </div>
 
-    <!-- JS Logic (keeps your original logic) -->
-    <script>
-        document.getElementById('submit-button').addEventListener('click', async () => {
-            const prompt = document.getElementById('prompt-input').value;
-            const loadingMessage = document.getElementById('loading-message');
-            const tableBody = document.querySelector('#stock-table tbody');
-            const note = document.getElementById('note');
+  <script>
+  // Helper: clamp color for very small rounding errors
+  function formatPercent(n){
+    const sign = n>0 ? '+' : '';
+    return sign + n.toFixed(5) + '%';
+  }
 
-            note.style.display = "none";
-            loadingMessage.style.display = 'block';
-            tableBody.innerHTML = '';
+  document.getElementById('submit-button').addEventListener('click', async () => {
+    const prompt = document.getElementById('prompt-input').value.trim();
+    const loadingMessage = document.getElementById('loading-message');
+    const tableBody = document.querySelector('#stock-table tbody');
 
-            try {
-                const companyResponse = await fetch('company.json');
-                if (!companyResponse.ok) throw new Error('Failed to load company data');
-                const companyData = await companyResponse.json();
-                const company = {};
-                companyData.forEach(c => {
-                    company[c.Symbol] = { securityName: c["Security Name"] };
-                });
+    tableBody.innerHTML = '';
+    loadingMessage.style.display = 'block';
 
-                const response = await fetch("http://localhost:5000/predict", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ insight: prompt })
-                });
-                if (!response.ok) throw new Error('Prediction API request failed');
+    try{
+      const [companyResp, apiResp] = await Promise.all([
+        fetch('company.json'),
+        fetch('http://localhost:5000/predict', {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({insight:prompt})
+        })
+      ]);
+      if(!companyResp.ok) throw new Error('company.json load failed');
+      if(!apiResp.ok) throw new Error('prediction API failed');
 
-                const preds = await response.json();
-                const positiveSum = Object.values(preds).filter(v => v > 0).reduce((sum, v) => sum + v, 0);
-                const sortedPreds = Object.entries(preds).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+      const companyData = await companyResp.json();
+      const preds = await apiResp.json();
 
-                sortedPreds.forEach(([ticker, percentChange]) => {
-                    const logo = 'icons/' + ticker + '.png';
-                    const name = company[ticker]?.securityName || 'Unknown';
+      const company = {};
+      companyData.forEach(c => company[c.Symbol] = { securityName: c['Security Name'] });
 
-                    const row = document.createElement('tr');
+      // compute positive sum and sort by absolute magnitude
+      const positiveSum = Object.values(preds).filter(v=>v>0).reduce((s,v)=>s+v,0);
+      const sorted = Object.entries(preds).sort((a,b)=> Math.abs(b[1]) - Math.abs(a[1]));
 
-                    // Ticker
-                    const tickerCell = document.createElement('td');
-                    tickerCell.textContent = ticker;
-                    row.appendChild(tickerCell);
+      // render rows
+      for(const [ticker, pct] of sorted){
+        const name = company[ticker]?.securityName || 'Unknown';
+        const positive = pct > 0;
 
-                    // Company name + logo
-                    const nameCell = document.createElement('td');
-                    const logoImg = document.createElement('img');
-                    logoImg.src = logo;
-                    logoImg.alt = name;
-                    logoImg.width = 24;
-                    nameCell.appendChild(logoImg);
-                    const compName = document.createElement('span');
-                    compName.textContent = name;
-                    nameCell.appendChild(compName);
-                    row.appendChild(nameCell);
+        const tr = document.createElement('tr');
 
-                    // Percent change
-                    const changeCell = document.createElement('td');
-                    changeCell.textContent = `${percentChange.toFixed(5)}%`;
-                    changeCell.className = percentChange > 0 ? 'change-positive' : 'change-negative';
-                    row.appendChild(changeCell);
+        // Ticker
+        const tdTicker = document.createElement('td'); tdTicker.className='ticker'; tdTicker.textContent = ticker; tr.appendChild(tdTicker);
 
-                    // Weight
-                    const weightCell = document.createElement('td');
-                    let weight = percentChange > 0 && positiveSum > 0 ? percentChange / positiveSum : 0;
-                    weightCell.textContent = weight.toFixed(5);
-                    row.appendChild(weightCell);
+        // Name + logo + trend badge
+        const tdName = document.createElement('td'); tdName.className='name';
+        const logo = document.createElement('img'); logo.className='logo'; logo.src = 'icons/' + ticker + '.png'; logo.alt = ticker + ' logo';
+        logo.onerror = ()=>{ logo.style.display='none'};
+        const badge = document.createElement('span'); badge.className = 'trend-badge ' + (positive? 'pos': 'neg'); badge.textContent = positive ? '▲' : '▼';
+        const spanName = document.createElement('span'); spanName.textContent = name;
+        tdName.appendChild(logo);
+        tdName.appendChild(badge);
+        tdName.appendChild(spanName);
+        tr.appendChild(tdName);
 
-                    tableBody.appendChild(row);
-                });
+        // Percent change (close to name visually)
+        const tdPred = document.createElement('td'); tdPred.className='pred';
+        const p = document.createElement('span'); p.className = 'percent ' + (positive? 'pos':'neg'); p.textContent = formatPercent(pct);
+        tdPred.appendChild(p);
+        tr.appendChild(tdPred);
 
-            } catch (error) {
-                console.error('Error:', error);
-            } finally {
-                loadingMessage.style.display = 'none';
-            }
-        });
-    </script>
+        // Weight
+        const tdWeight = document.createElement('td'); tdWeight.className='weight';
+        const weight = (positive && positiveSum>0) ? pct / positiveSum : 0;
+        tdWeight.textContent = weight.toFixed(5);
+        tr.appendChild(tdWeight);
+
+        tableBody.appendChild(tr);
+      }
+
+    }catch(err){
+      console.error(err);
+      const tableBody = document.querySelector('#stock-table tbody');
+      const row = document.createElement('tr');
+      const cell = document.createElement('td'); cell.colSpan=4; cell.style.color='var(--subtext)'; cell.textContent = 'Error loading predictions. See console.';
+      row.appendChild(cell); tableBody.appendChild(row);
+    }finally{
+      loadingMessage.style.display = 'none';
+    }
+  });
+  </script>
 </body>
 </html>
