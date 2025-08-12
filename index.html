@@ -113,43 +113,47 @@ A potentially novel regularization term that summates all positive cosine simila
 
 
 -->
-<br/><br/>
-<hr style="border: none; border-top: 0.5px solid white; margin: 10px 0;">
-<br/><br/>
-<center><canvas id="pdf-canvas"></canvas>
 
-  <script>
-    // Set worker URL (required for pdf.js to work)
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+<br/><br/><br/>
+<center>
 
-    // Load a PDF
-    const url = "report.pdf";
+<div id="pdf-container"></div>
 
-    // Fetch and render first page
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-      console.log(`PDF loaded: ${pdf.numPages} pages`);
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-      pdf.getPage(1).then(page => {
-        console.log("Page loaded");
+  const url = "report.pdf";
 
+  pdfjsLib.getDocument(url).promise.then(pdf => {
+    console.log(`PDF loaded: ${pdf.numPages} pages`);
+
+    const container = document.getElementById("pdf-container");
+
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      // Create canvas for this page
+      const canvas = document.createElement("canvas");
+      container.appendChild(canvas);
+
+      // Render page
+      pdf.getPage(pageNum).then(page => {
         const scale = 1.5;
         const viewport = page.getViewport({ scale });
 
-        // Prepare canvas
-        const canvas = document.getElementById("pdf-canvas");
-        const context = canvas.getContext("2d");
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
-        // Render
+        const context = canvas.getContext("2d");
+
         page.render({
           canvasContext: context,
           viewport: viewport
         });
       });
-    });
-  </script>
+    }
+  });
+</script>
+
 
 
 
