@@ -144,62 +144,115 @@ A potentially novel regularization term that summates all positive cosine simila
 <center>
 
 <div id="pdf-container" style="position: relative;">
-  <canvas id="pdf-canvas"></canvas>
-  <div id="text-layer"
-       style="position: absolute; top: 0; left: 0; pointer-events: none;"></div>
+
 </div>
 
 <script>
-  const url = "report.pdf";
+const url = "report.pdf";
 
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-pdfjsLib.getDocument(url).promise.then(pdf => {
-  pdf.getPage(1).then(page => {
-    const container = document.getElementById("pdf-container");
-    const containerWidth = container.clientWidth;
+pdfjsLib.getDocument(url).promise.then(async (pdf) => {
+  const container = document.getElementById("pdf-container");
+  const containerWidth = container.clientWidth;
 
-    // Get viewport at scale 1 first
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    const page = await pdf.getPage(pageNum);
+
+    // Create page container
+    const pageDiv = document.createElement("div");
+    pageDiv.className = "pdf-page";
+    container.appendChild(pageDiv);
+
+    // Create canvas
+    const canvas = document.createElement("canvas");
+    pageDiv.appendChild(canvas);
+
+    // Create text layer
+    const textLayerDiv = document.createElement("div");
+    textLayerDiv.className = "text-layer"; // Use class for styling
+    pageDiv.appendChild(textLayerDiv);
+
+    // Calculate viewport and scale to fit container
     const unscaledViewport = page.getViewport({ scale: 1 });
-
-    // Calculate scale to fit container width
     const scale = containerWidth / unscaledViewport.width;
-
     const dpi = window.devicePixelRatio || 1;
     const viewport = page.getViewport({ scale: scale * dpi });
 
-    const canvas = document.getElementById("pdf-canvas");
-    const context = canvas.getContext("2d");
+    // Set canvas dimensions
     canvas.width = viewport.width;
     canvas.height = viewport.height;
+    canvas.style.width = `${viewport.width / dpi}px`;
+    canvas.style.height = `${viewport.height / dpi}px`;
+    canvas.style.display = "block";
+    canvas.style.margin = "0 auto"; // Center if needed
 
-    canvas.style.width = viewport.width / dpi + "px";
-    canvas.style.height = viewport.height / dpi + "px";
+    // Render page to canvas
+    const context = canvas.getContext("2d");
+    await page.render({ canvasContext: context, viewport: viewport }).promise;
 
-    page.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
-      return page.getTextContent();
-    }).then(textContent => {
-      const textLayerDiv = document.getElementById("text-layer");
-      textLayerDiv.style.width = canvas.style.width;
-      textLayerDiv.style.height = canvas.style.height;
-      textLayerDiv.style.pointerEvents = "auto";
+    // Get and render text layer
+    const textContent = await page.getTextContent();
+    textLayerDiv.style.width = canvas.style.width;
+    textLayerDiv.style.height = canvas.style.height;
 
-      textLayerDiv.innerHTML = "";
-
-      pdfjsLib.renderTextLayer({
-        textContent,
-        container: textLayerDiv,
-        viewport: viewport,
-        textDivs: []
-      });
+    pdfjsLib.renderTextLayer({
+      textContentSource: textContent, // For pdf.js v3+
+      container: textLayerDiv,
+      viewport: viewport,
+      textDivs: []
     });
-  });
+  }
+}).catch(error => {
+  console.error("Error loading PDF:", error);
 });
-
 </script>
 
+<style>
+/* Existing styles... */
 
+#pdf-container {
+  max-width: 800px; /* Adjust to fit your page width; centers the PDF */
+  margin: 0 auto;
+}
+
+.pdf-page {
+  position: relative;
+  margin-bottom: 20px; /* Space between pages */
+}
+
+.text-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  line-height: 1;
+  opacity: 1;
+  pointer-events: auto; /* Allows selection */
+}
+
+.text-layer > span {
+  color: transparent; /* Makes text invisible but selectable */
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.text-layer ::selection {
+  background: rgba(0, 0, 255, 0.3); /* Highlight color when selecting text */
+  color: transparent; /* Keeps text hidden during selection */
+}
+
+/* For mobile/responsiveness */
+@media only screen and (max-width: 480px) {
+  #pdf-container {
+    max-width: 100%;
+  }
+}
+</style>
 
 
 <br/><br/>
