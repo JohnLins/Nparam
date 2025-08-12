@@ -155,44 +155,48 @@ A potentially novel regularization term that summates all positive cosine simila
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-  pdfjsLib.getDocument(url).promise.then(pdf => {
-    pdf.getPage(1).then(page => {
-      const scale = 1.5;
-      const dpi = window.devicePixelRatio || 1;
-      const viewport = page.getViewport({ scale: scale * dpi });
+pdfjsLib.getDocument(url).promise.then(pdf => {
+  pdf.getPage(1).then(page => {
+    const container = document.getElementById("pdf-container");
+    const containerWidth = container.clientWidth;
 
-      // Prepare canvas
-      const canvas = document.getElementById("pdf-canvas");
-      const context = canvas.getContext("2d");
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
+    // Get viewport at scale 1 first
+    const unscaledViewport = page.getViewport({ scale: 1 });
 
-      canvas.style.width = viewport.width / dpi + "px";
-      canvas.style.height = viewport.height / dpi + "px";
+    // Calculate scale to fit container width
+    const scale = containerWidth / unscaledViewport.width;
 
-      // Render PDF page to canvas
-      page.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
-        // Now render text layer
-        return page.getTextContent();
-      }).then(textContent => {
-        const textLayerDiv = document.getElementById("text-layer");
-        textLayerDiv.style.width = canvas.style.width;
-        textLayerDiv.style.height = canvas.style.height;
-        textLayerDiv.style.pointerEvents = "auto"; // Enable text selection
+    const dpi = window.devicePixelRatio || 1;
+    const viewport = page.getViewport({ scale: scale * dpi });
 
-        // Clear previous text layer if any
-        textLayerDiv.innerHTML = "";
+    const canvas = document.getElementById("pdf-canvas");
+    const context = canvas.getContext("2d");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
 
-        // Use pdfjs to render text layer
-        pdfjsLib.renderTextLayer({
-          textContent,
-          container: textLayerDiv,
-          viewport: viewport,
-          textDivs: []
-        });
+    canvas.style.width = viewport.width / dpi + "px";
+    canvas.style.height = viewport.height / dpi + "px";
+
+    page.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
+      return page.getTextContent();
+    }).then(textContent => {
+      const textLayerDiv = document.getElementById("text-layer");
+      textLayerDiv.style.width = canvas.style.width;
+      textLayerDiv.style.height = canvas.style.height;
+      textLayerDiv.style.pointerEvents = "auto";
+
+      textLayerDiv.innerHTML = "";
+
+      pdfjsLib.renderTextLayer({
+        textContent,
+        container: textLayerDiv,
+        viewport: viewport,
+        textDivs: []
       });
     });
   });
+});
+
 </script>
 
 
