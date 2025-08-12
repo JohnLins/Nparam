@@ -49,7 +49,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
-    canvas { display: block; margin: 20px auto; border: 1px solid #ccc; }
+    canvas { display: block; margin: 20px auto; }
   </style>
 
 </head>
@@ -82,7 +82,33 @@
 <br/><br/>
 <center>
 
-<img id="vid" src="dash.png"/>
+<img id="vid" src="dash.png" style="transition: opacity 1s ease-in-out; opacity: 1;" />
+
+<script>
+  const choices = ["dash.png", "dash2.png"];
+  let currentIndex = Math.floor(Math.random() * choices.length);
+
+  const img = document.getElementById("vid");
+  img.src = choices[currentIndex];
+
+  function fadeToNextImage() {
+    // Fade out
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      // Change image source to next
+      currentIndex = (currentIndex + 1) % choices.length;
+      img.src = choices[currentIndex];
+
+      // Fade in
+      img.style.opacity = 1;
+    }, 1000); // Match this to the CSS transition duration (1s here)
+  }
+
+  // Change image every 3 seconds
+  setInterval(fadeToNextImage, 6000);
+</script>
+
 <!--<video id="vid" controls autoplay muted loop>
   <source src="demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
@@ -117,40 +143,55 @@ A potentially novel regularization term that summates all positive cosine simila
 <br/><br/><br/>
 <center>
 
-<div id="pdf-container"></div>
+<div id="pdf-container" style="position: relative;">
+  <canvas id="pdf-canvas"></canvas>
+  <div id="text-layer"
+       style="position: absolute; top: 0; left: 0; pointer-events: none;"></div>
+</div>
 
 <script>
+  const url = "report.pdf";
+
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-  const url = "report.pdf";
-
   pdfjsLib.getDocument(url).promise.then(pdf => {
-    console.log(`PDF loaded: ${pdf.numPages} pages`);
+    pdf.getPage(1).then(page => {
+      const scale = 1.5;
+      const dpi = window.devicePixelRatio || 1;
+      const viewport = page.getViewport({ scale: scale * dpi });
 
-    const container = document.getElementById("pdf-container");
+      // Prepare canvas
+      const canvas = document.getElementById("pdf-canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
 
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      // Create canvas for this page
-      const canvas = document.createElement("canvas");
-      container.appendChild(canvas);
+      canvas.style.width = viewport.width / dpi + "px";
+      canvas.style.height = viewport.height / dpi + "px";
 
-      // Render page
-      pdf.getPage(pageNum).then(page => {
-        const scale = 1.5;
-        const viewport = page.getViewport({ scale });
+      // Render PDF page to canvas
+      page.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
+        // Now render text layer
+        return page.getTextContent();
+      }).then(textContent => {
+        const textLayerDiv = document.getElementById("text-layer");
+        textLayerDiv.style.width = canvas.style.width;
+        textLayerDiv.style.height = canvas.style.height;
+        textLayerDiv.style.pointerEvents = "auto"; // Enable text selection
 
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        // Clear previous text layer if any
+        textLayerDiv.innerHTML = "";
 
-        const context = canvas.getContext("2d");
-
-        page.render({
-          canvasContext: context,
-          viewport: viewport
+        // Use pdfjs to render text layer
+        pdfjsLib.renderTextLayer({
+          textContent,
+          container: textLayerDiv,
+          viewport: viewport,
+          textDivs: []
         });
       });
-    }
+    });
   });
 </script>
 
