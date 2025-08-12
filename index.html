@@ -47,7 +47,10 @@
 <link rel="apple-touch-icon" href="nparam.png" />
 
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+    canvas { display: block; margin: 20px auto; border: 1px solid #ccc; }
+  </style>
 
 </head>
 <body>
@@ -113,12 +116,40 @@ A potentially novel regularization term that summates all positive cosine simila
 <br/><br/>
 <hr style="border: none; border-top: 0.5px solid white; margin: 10px 0;">
 <br/><br/>
-<center>
-<h1>About</h1><br/>
-<div style="width:85%; text-align: left;max-width:600px">
-Nparam Bull is a fast inference model that <i>predicts the instantaneous price fluctuation of stocks given raw textual market data</i>. Bull was trained on decades of financial and market news correlated with the daily percent changes of 100 top stocks; the whole model is 360M+ parameters. This marks a new model paradigm called Large <b>Stock Models (LSM)</b>, similar to the transformer architecture found in LLMs.
-</div>
+<center><canvas id="pdf-canvas"></canvas>
 
+  <script>
+    // Set worker URL (required for pdf.js to work)
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+    // Load a PDF
+    const url = "report.pdf";
+
+    // Fetch and render first page
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+      console.log(`PDF loaded: ${pdf.numPages} pages`);
+
+      pdf.getPage(1).then(page => {
+        console.log("Page loaded");
+
+        const scale = 1.5;
+        const viewport = page.getViewport({ scale });
+
+        // Prepare canvas
+        const canvas = document.getElementById("pdf-canvas");
+        const context = canvas.getContext("2d");
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        // Render
+        page.render({
+          canvasContext: context,
+          viewport: viewport
+        });
+      });
+    });
+  </script>
 
 
 
