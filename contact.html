@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Nparam</title>
+  <link rel="icon" type="image/x-icon" href="nparam.png">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display+SC:wght@400;700;900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="lightcoral">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: "Lato", sans-serif;
+      background-color: #36393e;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    h1 {
+      font-family: "Playfair Display SC", serif;
+      font-size: 60px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: white;
+    }
+    a.email-link {
+      font-size: 24px;
+      color: lightcoral;
+      text-decoration: none;
+      border: 2px solid lightcoral;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+    }
+    a.email-link:hover {
+      background-color: white;
+      color: #36393e;
+      cursor: pointer;
+      box-shadow: 0px 0px 0px 5px white;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 40px;
+      }
+      a.email-link {
+        font-size: 18px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Contact</h1>
+    <a class="email-link" href="mailto:contact@johnlins.com">contact@johnlins.com</a>
+  </div>
+</body>
+</html>
