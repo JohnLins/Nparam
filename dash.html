@@ -252,13 +252,24 @@ document.getElementById('submit-button').addEventListener('click', async () => {
             company[c.Symbol] = { securityName: c["Security Name"] };
         });
 
-        // Call local Flask API with POST JSON body
-        const response = await fetch("http://localhost:5000/predict", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ insight: prompt })
-        });
-        if (!response.ok) throw new Error('Prediction API request failed');
+        // Try local Flask API first
+        let response;
+        try {
+            response = await fetch("http://localhost:5000/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ insight: prompt })
+            });
+            if (!response.ok) throw new Error('Local API failed');
+        } catch (err) {
+            console.warn("Localhost API unreachable, using Railway fallback...");
+            response = await fetch("https://web-production-2ca4.up.railway.app/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ insight: prompt })
+            });
+            if (!response.ok) throw new Error('Railway API request failed');
+        }
 
         const preds = await response.json();
 
@@ -283,17 +294,13 @@ document.getElementById('submit-button').addEventListener('click', async () => {
         sortedPreds.forEach(([ticker, percentChange]) => {
             const logo = 'icons/' + ticker + '.png';
             const name = company[ticker]?.securityName || 'Unknown';
-
             const row = document.createElement('tr');
-
-
-            //row.style.backgroundColor = percentChange > 0 ? '#0f872b' : '#870f0f';
+            row.style.backgroundColor = percentChange > 0 ? '#4a5a52 ' : '#554d52';
 
             // Ticker
             const tickerCell = document.createElement('td');
             tickerCell.textContent = ticker;
             row.appendChild(tickerCell);
-            row.style.backgroundColor = percentChange > 0 ? '#4a5a52 ' : '#554d52';
 
             // Company name + logo
             const nameCell = document.createElement('td');
@@ -310,15 +317,12 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
             // Percent change
             const changeCell = document.createElement('td');
-
-
             const arrow = document.createElement('span');
             arrow.className = percentChange > 0 ? 'up' : 'down';
             arrow.textContent = percentChange > 0 ? '▲ ' : '▼ ';
             const changeSpan = document.createElement('span');
             changeSpan.textContent = `${percentChange.toFixed(5)}%`;
             changeSpan.className = percentChange > 0 ? 'up' : 'down';
-
             changeCell.appendChild(arrow);
             changeCell.appendChild(changeSpan);
             row.appendChild(changeCell);
@@ -340,6 +344,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
     }
 });
 </script>
+
 
 
 
